@@ -1,0 +1,34 @@
+US1: Como usuario quiero poder visualizar los RA de una asignatura.{
+	
+	-Se necesita poder instanciar una asignatura
+	-Se necesita poder instanciar un resultado de aprendizaje dentro de una asignatura.
+	-Se necesita poder seleccionar una asignatura ya existente.
+	
+	: 
+		-Base de datos(Diagrama de Clases?).
+		-Programa basico para simular la interaccion con la base??
+
+	Tareas:
+		-Diseñar base de datos
+		-Definir funcionamiento del programa????????
+		-Implementación Modulo1_P1
+
+}
+
+US2: Como usuario quiero ingresar una evaluación para luego poder asignarla a uno o mas resultados de aprendizaje.{
+	
+	-Se necesita poder instanciar una evaluación.
+
+}
+
+US3: Como usuario quiero poder asignar Resultados de Aprendizaje a cada ítem de una evaluación.{
+	
+	-Se necesita poder asignar uno o mas Resultados de Aprendizaje a un ítem.
+
+}
+
+US4: Como usuario quiero poder registrar los puntajes obtenidos de una evaluación.{
+	
+	-Se necesita poder asignar un puntaje a un ítem de una Evaluación.
+
+}
