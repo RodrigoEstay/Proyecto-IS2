@@ -1,0 +1,6 @@
+Ingenieria de Software II
+503355
+Reconocer los conceptos básicos de Ingeniería de Software
+Describir modelos de desarrollo tradicionales para sistemas software
+Aplicar métodos de desarrollo actuales en entornos de desarrollo de mediana escala
+Identificar los principales conceptos de Testing de Software en el diseño e implementación de sistemas software

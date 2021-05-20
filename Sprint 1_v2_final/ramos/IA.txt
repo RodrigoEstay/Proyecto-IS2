@@ -1,0 +1,8 @@
+Inteligencia Artificial
+503356
+Explicar los conceptos y paradigmas básicos de la Inteligencia Artificial.
+Describir y aplicar estrategias de Inteligencia Artificial para la resolución de problemas.
+Decidir entre los mejores métodos para solucionar un problema en particular
+Combinar elementos de los diferentes enfoques de la IA para resolver problemas nuevos.
+Distinguir y utilizar técnicas de representación y manipulación de conocimiento.
+Entender los algoritmos fundamentales de búsqueda, de aprendizaje automático y de razonamiento para toma de decisiones bajo incertidumbre
