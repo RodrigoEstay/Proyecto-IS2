@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+  		<meta charset="utf-8">
+  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    	<title>{{asignatura.nombre}}</title>
+  	</head>
+  	<body>
+  		<div class = "row">
+  			<div class = "detalles">
+  				
+  				<h1>{{asignatura.nombre}}</h1>
+  				
+  				
+  			</div>
+  			<div class = "opciones">
+  					<h5> Crear evaluacion</h5>
+            <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}">
+  					 <h5> Ver evaluacion</h5>
+            </a>
+  					
+  			</div>
+  		</div>
+    	
+    	<div class = "row">
+    		<div class = "sidebar">
+    			
+    		</div>
+    		<div class = "content">
+    			<div class="wrapper">
+    			{% for alumno in alumnos %}
+            <div class="card">
+              <img src="http://www.iit.udec.cl/wp-content/uploads/2019/07/Gonzalo_Rojas.jpg" alt="Avatar" style="width:33%">
+              <div class="container">
+                <h4><b>{{alumno.nombre}}</b></h4> 
+                <p>Matricula: {{alumno.num_matricula}}</p> 
+              </div>
+            </div>
+    				
+    			{% endfor %}
+    		</div>
+    		
+		</div>
+    	</div>
+    	
+  	</body>
+</html>

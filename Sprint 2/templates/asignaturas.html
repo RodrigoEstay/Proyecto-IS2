@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+  		<meta charset="utf-8">
+  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    	
+  	</head>
+  	<body>
+  		<div class = "row">
+  			<div class = "detalles">
+  				
+  				
+  				
+  				
+  			</div>
+  			<div class = "opciones">
+  					
+  			</div>
+  		</div>
+    	
+    	<div class = "row">
+    		<div class = "sidebar">
+    			
+    		</div>
+    		<div class = "content">
+    			<div class="wrapper">
+    			{% for ramo in ramos %}
+            <a href="{{url_for('infAsignatura',codigoAsignatura=ramo.codigo)}}">
+              <div class="card ramo">
+              <div class="contAsign" style = "height: 50%">
+                <h4><b>{{ramo.nombre_asignatura}}</b></h4> 
+                <h5>Semestre {{semester}} - {{year}}</h5>
+                <h5>{{ramo.num_alumnos}} Estudiantes</h5>
+              </div>
+              
+              <img src="https://lh3.googleusercontent.com/g0Jw-I6-gH2DVCpnl3u8QKZVT_meR9lcJlpyeSZ-MyvwLnyEZvgyrY5frldA8HCv55s=w280" alt="grafico" style = "height:50%">
+              
+              
+              
+            </div>
+            </a>
+            
+    				
+    			{% endfor %}
+    		</div>
+    		
+		</div>
+    	</div>
+    	
+  	</body>
+</html>
