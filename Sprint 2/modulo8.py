@@ -342,3 +342,131 @@ def agregarResultadoAprendizaje(con, codigo, nombre):
 	cur.close()
 
 
+def get_nombre_alumno(con, numMatricula):
+
+	cur = con.cursor()
+	nombreal = ""
+	try:
+	#asignatura_semestre.codigo_asignatura = %s AND asignatura_semestre.codigo_asignatura=asignatura.codigo
+		cur.execute('SELECT alumno.nombre FROM alumno WHERE alumno.num_matricula = %s',(numMatricula,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos")
+		print(error)
+	else:
+		nombreal = cur.fetchone()[0]
+
+	cur.close()
+	return nombreal
+
+
+def get_nombre_profesor(con, rut):
+
+	cur = con.cursor()
+	nombrepro = ""
+	try:
+	#asignatura_semestre.codigo_asignatura = %s AND asignatura_semestre.codigo_asignatura=asignatura.codigo
+		cur.execute('SELECT profesor.nombre FROM profesor WHERE profesor.rut = %s',(rut,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos")
+		print(error)
+	else:
+		nombrepro = cur.fetchone()[0]
+
+	cur.close()
+	return nombrepro
+
+
+def borrar_evaluacion(con, codigo, año, semestre, numeval):
+
+	lista = get_listaEvaluacionesAsignatura(con, codigo, semestre, año)
+
+	idEval = lista[numeval-1]['id_evaluacion']
+
+	nombreas = get_nombre_asignatura(con, codigo)
+
+	cur=con.cursor()
+
+	try:		
+		cur.execute('DELETE FROM evaluacion WHERE numero = %s',(idEval,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al borrar datos: ")
+		print(error)
+	else:
+		con.commit()
+		print("Se borro la evaluacion", numeval, "de la asignatura", nombreas)
+
+	cur.close()
+
+
+def borrar_alumno(con, numMatricula):
+
+	cur=con.cursor()
+
+	nombreal = get_nombre_alumno(con, numMatricula)
+
+	try:		
+		cur.execute('DELETE FROM alumno WHERE num_matricula = %s',(numMatricula,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al borrar datos: ")
+		print(error)
+	else:
+		con.commit()
+		print("Se borro al alumno:", nombreal)
+
+	cur.close()
+
+
+def borrar_profesor(con, rut):
+
+	cur=con.cursor()
+
+	nombrepro = get_nombre_profesor(con, rut)
+
+	try:		
+		cur.execute('DELETE FROM profesor WHERE rut = %s',(rut,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al borrar datos: ")
+		print(error)
+	else:
+		con.commit()
+		print("Se borro al profesor:", nombrepro)
+
+	cur.close()
+
+
+def alumno_cursa(con, numMatricula, codigo, semestre, año):
+
+	cur=con.cursor()
+
+	nombreas = get_nombre_asignatura(con, codigo)
+	nombreal = get_nombre_alumno(con, numMatricula)
+
+	try:		
+		cur.execute('INSERT INTO cursa (id_alumno,codigo_asignatura,semestre,año) VALUES (%s, %s, %s, %s)',(numMatricula, codigo, semestre, año))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al insertar datos: ")
+		print(error)
+	else:
+		con.commit()
+		print("Se ha ingresado al Alumno:", nombreal, ", en la asignatura:", nombreas)
+
+	cur.close()
+
+
+def profesor_imparte(con, rut, codigo, semestre, año):
+
+	cur=con.cursor()
+
+	nombreas = get_nombre_asignatura(con, codigo)
+	nombrepro = get_nombre_profesor(con, rut)
+
+	try:		
+		cur.execute('INSERT INTO imparte (id_profesor,codigo_asignatura,semestre,año) VALUES (%s, %s, %s, %s)',(rut, codigo, semestre, año))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al insertar datos: ")
+		print(error)
+	else:
+		con.commit()
+		print("El profesor: :", nombrepro, "imparte la asignatura", nombreas)
+
+	cur.close()
