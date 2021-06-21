@@ -1,5 +1,6 @@
 import functools
 import modulo8 as bd
+from flask_login import current_user, login_required
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -8,14 +9,11 @@ from flask import (
 conn = bd.connect()
 bp = Blueprint('evaluacion', __name__)
 
-# ASUMIMOS QUE EL PROFE TA LOGUEADO:
-IDProfe = "2"
 semester = 1
 year = 2021
 
-
-
 @bp.route("/asignatura/<asignaturaID>/eval")
+@login_required
 def evaluation(asignaturaID):
 	evaluaciones = bd.get_listaEvaluacionesAsignatura(conn,asignaturaID,semester,year)
 	asignaturas = {}
@@ -25,6 +23,7 @@ def evaluation(asignaturaID):
 	return render_template('evaluacion/eval.html', evaluaciones=evaluaciones, asignatura=asignaturas)
 
 @bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/addScore", methods=['GET', 'POST'])
+@login_required
 def addScore(asignaturaID, evalID):
 
 	if request.method == "POST":

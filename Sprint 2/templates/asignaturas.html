@@ -3,14 +3,13 @@
 	<head>
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+		  <title>Asignaturas</title>
     	
   	</head>
   	<body>
+		  
   		<div class = "row">
   			<div class = "detalles">
-  				
-  				
-  				
   				
   			</div>
   			<div class = "opciones">
@@ -46,6 +45,11 @@
     		
 		</div>
     	</div>
+
+		<div class = "logout">
+			<a href="{{url_for('logout')}}">Cerrar sesión</a>
+
+		</div>
     	
   	</body>
 </html>
