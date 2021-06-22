@@ -34,8 +34,14 @@ def detallesEval(asignaturaID, evalID):
 	items = sorted(items, key=lambda k:k["id_item"])
 
 	RAItems = [bd.get_ResultadosItem(conn, item["id_item"]) for item in items]
+	temp = []
+	for raitems in RAItems:
+		for raitem in raitems:
+			temp.append({'id_resultado':raitem["id_resultado"],'nombre':raitem["nombre"]})
 
-	RAEval = bd.get_ResultadosAsignatura(conn, asignaturaID)
+	RAEval = list({v['id_resultado']:v for v in temp}.values())
+
+	#RAEval = bd.get_ResultadosAsignatura(conn, asignaturaID)
 	comentario = None
 
 	return render_template('evaluacion/detalles.html', asignatura=asignatura, evalIndex=evalIndex, items=items,
