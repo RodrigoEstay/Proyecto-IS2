@@ -8,6 +8,61 @@ a:hover {
 	text-decoration: underline;
 }
 
+.elementoItem{
+	margin: 30px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  	transition: 0.3s;
+  	padding: 15px;
+}
+.elementoItem:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.itemHeader{
+	display:flex;
+}
+.puntItem{
+	float:left;
+	margin: 0 20% 0 0;
+}
+.enunciado{
+	height:300px;
+	margin: 5px;
+}
+.comentario{
+	height:150px;
+	width: 50%;
+	float:right;
+	margin: 5px;
+}
+
+.item-data{
+	display:flex;
+	flex-direction: column;
+	float: left;
+	width: 60%;
+	margin: 0 5%;
+}
+.item-titulo{
+	width:150px;
+	height:50px;
+	float:center;
+	border:1px solid black;
+	margin: auto;
+	text-align:center;
+	padding: 5px;
+}
+.RA-check{
+	width:20%;
+	float: left;
+	height:350px;
+	display:flex;
+	overflow: auto;
+	flex-direction: column;
+	border: 2px solid black;
+}
+
+
 .wrapper {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -145,4 +200,11 @@ a:hover {
   background-color: #3e8e41;
   transform: translateY(4px);
   transition: 0.1s
+}
+
+
+
+.boton.addItem{
+	float:right;
+	margin:10px;
 }

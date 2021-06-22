@@ -14,7 +14,9 @@
   				
   			</div>
   			<div class = "opciones">
+            <a href="{{url_for('addEval', codigoAsignatura=asignatura.codigo)}}">
   					<h5> Crear evaluacion</h5>
+            </a>
             <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}">
   					 <h5> Ver evaluacion</h5>
             </a>
