@@ -184,16 +184,40 @@ def get_puntajesObtenidos(con,alumno,evaluacion):
 	cur.close()
 	return lista
 
-def nueva_Evaluacion(con,codigo_asignatura,semestre,year,puntaje_max):
+def nueva_Evaluacion(con,codigo_asignatura,semestre,año,puntaje_max):
+
 	cur=con.cursor()
+	#cantidad = 0
+
+	#se inserta la nueva evaluacion
 	try:		
-		cur.execute('INSERT INTO evaluacion (codigo_asignatura, semestre,año,puntaje_maximo) VALUES (%s, %s, %s, %s)',(codigo_asignatura,semestre,year,puntaje_max))
+		cur.execute('INSERT INTO evaluacion (codigo_asignatura,semestre,año,puntaje_maximo) VALUES (%s, %s, %s, %s)',(codigo_asignatura,semestre,año,puntaje_max))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al insertar datos: ")
 		print(error)
 	else:
 		con.commit()
+		print("Se agrego la evaluacion exitosamete")
+
 	cur.close()
+
+	cur=con.cursor()
+	#se cuenta la cantidad de evaluaciones
+	try:		
+		cur.execute('SELECT count(*) FROM evaluacion WHERE codigo_asignatura = %s',(codigo_asignatura,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al insertar datos: ")
+		print(error)
+	else:
+		cantidad = cur.fetchone()[0]	
+
+	lista = get_listaEvaluacionesAsignatura(con, codigo_asignatura, semestre, año)
+	
+	id_evaluacion = lista[cantidad-1]['id_evaluacion']
+	
+
+	
+	return id_evaluacion
 
 def nuevo_Item(con,evaluacion,puntaje_max,enunciado):
 	cur=con.cursor()
