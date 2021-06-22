@@ -1,6 +1,11 @@
 a{
 	text-decoration: none;
-	color:black;
+	color: DarkCyan;
+
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 .wrapper {
@@ -85,8 +90,14 @@ a{
 
 .items{
 	float: left;
-	width: 60%;
+	width: 40%;
 	font-size: 20px;
+	
+}
+
+.card.items{
+	margin: 0px 1.5em 0em 10em;
+	width: 60%;
 }
 
 .lista_clase {
@@ -97,5 +108,41 @@ a{
 	font-size: 20px;
 	padding: 20px;
 	border:2px solid black;
-	margin: 20px;
+	margin: 10px;
+}
+
+.card.evaluacion {
+	flex-direction: column;
+	width: 60%;
+	margin: 20px 20%;
+}
+
+.boton{
+	background-color: #008CBA;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+	transition-duration: 0.4s;
+}
+
+.boton.submitItems{
+	margin: 0px 1.5em 0em 20%;
+	padding: 15px 32px;
+}
+
+.boton:hover {
+	background-color: #4CAF50;
+	box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	color: white;
+}
+
+.boton:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+  transition: 0.1s
 }

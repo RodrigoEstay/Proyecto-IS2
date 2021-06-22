@@ -5,13 +5,12 @@
 
 {% block list %}
 	{% for ev in evaluaciones %}
-		<article class="list_element">
-			<h1>Evaluacion {{ loop.index }}</h1>
-			{% set index = loop.index %}
-			<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=ev['id_evaluacion']) }}?evalIndex={{loop.index}}">Ingresar Puntaje</a>
-		</article>
-		{% if not loop.last %}
-			<hr>
-		{% endif %}
+		<div class="card evaluacion">
+			<article class="list_element">
+				<h1>Evaluacion {{ loop.index }}</h1>
+				{% set index = loop.index %}
+				<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=ev['id_evaluacion']) }}?evalIndex={{loop.index}}">Ingresar Puntaje</a>
+			</article>
+		</div>
 	{% endfor %}
 {% endblock %}

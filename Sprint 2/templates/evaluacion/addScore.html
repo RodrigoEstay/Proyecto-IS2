@@ -13,9 +13,10 @@
 			
 				<div class="items">
 					{% for item in items %}
+					<div class="card items">
 						<article class="list_element">
 							<h1>Item {{ loop.index }}</h1>
-							<label for="score">Puntaje</label>
+							<label for="score">Puntaje: </label>
 							<input type="number" min="0" max="{{ item['puntaje_maximo'] }}" name="scores[]" id="score" required>
 							<input type="hidden" name="itemsID[]" id="itemID" value= "{{ item['id_item'] }}">
 							<score>/{{ item['puntaje_maximo'] }}</score>
@@ -23,6 +24,7 @@
 						{% if not loop.last %}
 							<hr>
 						{% endif %}
+					</div>
 					{% endfor %}
 				</div>
 
@@ -38,7 +40,7 @@
 
 			</div>
 
-			<input type='submit' value='Guardar puntaje'>
+			<input class='boton submitItems' type='submit' value='Guardar puntaje'>
 
 		</form>
 	{% else %}
