@@ -38,7 +38,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for('login'))
 
 @app.route('/asignatura/<codigoAsignatura>/addEval', methods = ['GET', 'POST'])
 def addEval(codigoAsignatura = None):
@@ -115,8 +115,8 @@ def infAsignatura(codigoAsignatura = None):
 	print(nombreas)
 	asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
 	alumnos = bd.get_listaAlumnosAsignaturaSemestre(con,codigoAsignatura,semester,year)
-	
-	return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos)
+	RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+	return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos,RAs = RA)
 
 
 if __name__ == "__main__":

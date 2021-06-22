@@ -50,7 +50,7 @@ a:hover {
 	border:1px solid black;
 	margin: auto;
 	text-align:center;
-	padding: 5px;
+	
 }
 .RA-check{
 	width:20%;
@@ -68,7 +68,7 @@ a:hover {
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 30px;
 	
-	margin: 0 10% 0 20%;
+	margin: 0 10% 0 10%;
 	
 }
 
@@ -79,9 +79,10 @@ a:hover {
 }
 
 .sidebar{
-	
+	border:2px solid black;
 	width: 20%;
 	float :left;
+	overflow: auto;
 }
 
 .detalles{
@@ -104,7 +105,7 @@ a:hover {
 }
 
 .content{
-	width: 80%;
+	width: 75%;
 	float: left;
 	height: auto;
 }

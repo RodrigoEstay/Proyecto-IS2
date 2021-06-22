@@ -14,11 +14,11 @@
   				
   			</div>
   			<div class = "opciones">
-            <a href="{{url_for('addEval', codigoAsignatura=asignatura.codigo)}}">
-  					<h5> Crear evaluacion</h5>
+            <a href="{{url_for('addEval', codigoAsignatura=asignatura.codigo)}}" class = "boton" >
+  					 Crear evaluacion
             </a>
-            <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}">
-  					 <h5> Ver evaluacion</h5>
+            <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}" class = "boton">
+  					  Ver evaluacion
             </a>
   					
   			</div>
@@ -26,7 +26,9 @@
     	
     	<div class = "row">
     		<div class = "sidebar">
-    			
+    			{% for ra in RAs %}
+            <p>{{ra.nombre}}</p>
+          {% endfor %}
     		</div>
     		<div class = "content">
     			<div class="wrapper">
