@@ -3,24 +3,51 @@
 	<h1>{% block title %}{{ asignatura }}{% endblock %}</h1>
 {% endblock %}
 {% block subHeader %}
-	Evaluación {{ evalIndex }}
+	
 {% endblock %}
 
 {% block list %}
 	{% if items %}
-
-		{% for item in items %}
-		<div class="card itemsDetalles">
-			<div class="itemInfoHeader">
-				<div>Item {{ loop.index }}</div>
-				<div>Puntaje máximo: {{ item['puntaje_max'] }}
+		<div class="detallesContainer">
+			<div id="evalInfoDetalles">
+				<h2>Evaluación {{ evalIndex }}</h2>
+				<h3>Resultados de Aprendizaje:</h3>
+				<div class="RAEval">				
+					{% for RA in RAEval %}
+						<p>{{ RA["nombre"] }}</p>
+					{% endfor %}
+				</div>
 			</div>
-			<div class="itemInfoEnunciado">
-				<div>Enunciado:</div>
-				<div>{{ item['enunciado'] }}</div>
+
+			<div id="itemsInfoDetalles">
+				{% for item in items %}
+					<div class="card itemsDetalles">
+						<div class="itemInfoHeader">
+							<div id="left">Item {{ loop.index }}</div>
+							<div id="right">{{ item['puntaje_maximo'] }} pts.</div>
+						</div>
+						<div class="itemInfoEnunciado">
+							<div>Enunciado:</div>
+							<div id="enunciado">{{ item['enunciado'] }}</div>
+						</div>
+						<div class="itemInfoRA">
+							<div>
+								<p>Resultados de aprendizaje:</p>
+								{% for RA in RAItems[loop.index0] %}
+									<p>{{ RA["nombre"] }}</p>
+								{% endfor %}
+							</div>
+							<div>
+								<span>Comentario:</span>
+								{% if RAItems[0] %}
+								<span>{{ RAItems[loop.index0][0]["comentario"] }}</span>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
-		{% endfor %}
 
 	{% else %}
 		<div>
