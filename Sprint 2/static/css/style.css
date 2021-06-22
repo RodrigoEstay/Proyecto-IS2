@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+
 a{
 	text-decoration: none;
 	color: DarkCyan;
@@ -7,8 +10,13 @@ a{
 a:hover {
 	text-decoration: underline;
 }
-
-
+.logout{
+	position: fixed;
+	bottom: 10px;
+}
+h5{
+	color: gray;
+}
 .elementoItem{
 	margin: 30px;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -242,7 +250,13 @@ a:hover {
 }
 
 .itemInfoHeader{
+	background-color: slategray;
+	background-size: 100% auto;
+	font-weight: bold;
+	color: white;
+	border-radius: 8px;
 	font-size-adjust: 0.80;
+	margin-bottom: 2%;
 	display: table;
     width: 100%;
     table-layout: fixed;
@@ -253,6 +267,7 @@ a:hover {
 	padding-left: 3%;
 	padding-right: 10%;
 	padding-bottom: 2%;
+	padding-top: 2%;
 }
 
 .itemInfoHeader #left{
