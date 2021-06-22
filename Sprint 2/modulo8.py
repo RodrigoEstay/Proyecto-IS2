@@ -470,3 +470,25 @@ def profesor_imparte(con, rut, codigo, semestre, año):
 		print("El profesor: :", nombrepro, "imparte la asignatura", nombreas)
 
 	cur.close()
+
+
+
+
+def profesor_no_imparte(con, rut, codigo, semestre, año):
+
+	cur=con.cursor()
+
+	nombrepro = get_nombre_profesor(con, rut)
+	nombreas = get_nombre_asignatura(con, codigo)
+
+	try:		
+		cur.execute('DELETE FROM imparte WHERE id_profesor = %s AND codigo_asignatura = %s AND semestre = %s AND año = %s',(rut, codigo, semestre, año))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al borrar datos: ")
+		print(error)
+	else:
+		con.commit()
+		print("Se borro al profesor:", nombrepro, "de la asignatura: ",nombreas)
+
+	cur.close()
+	
