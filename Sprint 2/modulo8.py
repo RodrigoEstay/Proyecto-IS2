@@ -220,15 +220,34 @@ def nueva_Evaluacion(con,codigo_asignatura,semestre,año,puntaje_max):
 	return id_evaluacion
 
 def nuevo_Item(con,evaluacion,puntaje_max,enunciado):
+
 	cur=con.cursor()
 	try:		
-		cur.execute('INSERT INTO item (numero_eval,puntaje_maximo,enunciado) VALUES (%s, %s, %s)',(evaluacion,puntaje_max,enunciado))
+		cur.execute('INSERT INTO item (numero_eval,puntaje_max,enunciado) VALUES (%s, %s, %s)',(evaluacion,puntaje_max,enunciado))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al insertar datos: ")
 		print(error)
 	else:
 		con.commit()
 	cur.close()
+
+	cur=con.cursor()
+	
+	try:		
+		cur.execute('SELECT count(*) FROM item WHERE numero_eval = %s',(evaluacion,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al insertar datos: ")
+		print(error)
+	else:
+		cantidad = cur.fetchone()[0]
+
+	lista = get_ItemsEvaluacion(con, evaluacion)
+
+	idItem = lista[cantidad-1]['id_item']
+
+
+	cur.close()
+	return idItem
 
 def asociar_ResultadoItem(con,item,resultado,comentario,puntaje):
 	cur=con.cursor()
