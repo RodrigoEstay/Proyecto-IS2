@@ -59,7 +59,9 @@ def addEval(codigoAsignatura = None):
 			enunciados.append((request.form.get("EN-"+str(i))))
 		idEval = bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
 		for i in range(1,cantItems+1):
-			bd.nuevo_Item(con, idEval ,puntajes[i-1],enunciados[i-1])
+			idItem = bd.nuevo_Item(con, idEval ,puntajes[i-1],enunciados[i-1])
+			for res in resultados[i-1]:
+				bd.asociar_ResultadoItem(con,idItem,res,comentarios[i-1],1)
 			
 		return redirect(url_for('evaluacion.evaluation',asignaturaID = codigoAsignatura))
 

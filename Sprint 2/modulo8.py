@@ -144,7 +144,7 @@ def get_ResultadosItem(con, item):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT asignado_a.id_resultado_aprendizaje,resultado_aprendizaje.nombre,asignado_a.comentario FROM resultado_aprendizaje,asignado_a WHERE asignado_a.id_item = %s AND resultado_aprendizaje.id_resultado=asignado_a.id_resultado_aprendizaje',(item))
+		cur.execute('SELECT asignado_a.id_resultado_aprendizaje,resultado_aprendizaje.nombre,asignado_a.comentario FROM resultado_aprendizaje,asignado_a WHERE asignado_a.id_item = %s AND resultado_aprendizaje.id_resultado=asignado_a.id_resultado_aprendizaje',(item,))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
@@ -190,7 +190,7 @@ def nueva_Evaluacion(con,codigo_asignatura,semestre,año,puntaje_max):
 	#cantidad = 0
 
 	#se inserta la nueva evaluacion
-	try:		infAsignatura
+	try:		
 		cur.execute('INSERT INTO evaluacion (codigo_asignatura,semestre,año,puntaje_maximo) VALUES (%s, %s, %s, %s)',(codigo_asignatura,semestre,año,puntaje_max))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al insertar datos: ")
@@ -252,9 +252,9 @@ def nuevo_Item(con,evaluacion,puntaje_max,enunciado):
 def asociar_ResultadoItem(con,item,resultado,comentario,puntaje):
 	cur=con.cursor()
 	try:		
-		cur.execute('INSERT INTO asignado_a (id_resultado_aprendizaje,id_item,comentario,puntaje) VALUES (%s, %s) ON CONFLICT ON CONSTRAINT asignado_a_pkey DO UPDATE SET comentario = EXCLUDED.comentario, puntaje = EXCLUDED.puntaje',(resultado,item,comentario,puntaje))
+		cur.execute('INSERT INTO asignado_a (id_resultado_aprendizaje,id_item,comentario,puntaje) VALUES (%s, %s,%s,%s) ON CONFLICT ON CONSTRAINT asignado_a_pkey DO UPDATE SET comentario = EXCLUDED.comentario, puntaje = EXCLUDED.puntaje',(resultado,item,comentario,puntaje))
 	except(Exception,psycopg2.DatabaseError) as error:
-		print("Fallo al insertar datos: ")
+		print("Fallo al insertar datos RI: ")
 		print(error)
 	else:
 		con.commit()
