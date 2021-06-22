@@ -57,10 +57,10 @@ def addEval(codigoAsignatura = None):
 			resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
 			comentarios.append((request.form.get("COM-"+str(i))))
 			enunciados.append((request.form.get("EN-"+str(i))))
-		bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
+		idEval = bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
 		for i in range(1,cantItems+1):
-			#bd.nuevo_Item(con,  ,puntajes[i-1],enunciados[i-1])
-			pass
+			bd.nuevo_Item(con, idEval ,puntajes[i-1],enunciados[i-1])
+			
 		return redirect(url_for('evaluacion.evaluation',asignaturaID = codigoAsignatura))
 
 

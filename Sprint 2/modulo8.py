@@ -190,7 +190,7 @@ def nueva_Evaluacion(con,codigo_asignatura,semestre,año,puntaje_max):
 	#cantidad = 0
 
 	#se inserta la nueva evaluacion
-	try:		
+	try:		infAsignatura
 		cur.execute('INSERT INTO evaluacion (codigo_asignatura,semestre,año,puntaje_maximo) VALUES (%s, %s, %s, %s)',(codigo_asignatura,semestre,año,puntaje_max))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al insertar datos: ")
@@ -215,7 +215,7 @@ def nueva_Evaluacion(con,codigo_asignatura,semestre,año,puntaje_max):
 	
 	id_evaluacion = lista[cantidad-1]['id_evaluacion']
 	
-
+	cur.close()
 	
 	return id_evaluacion
 
