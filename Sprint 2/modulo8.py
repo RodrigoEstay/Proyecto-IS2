@@ -130,7 +130,7 @@ def get_ResultadosAsignatura(con,asignatura):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT id_resultado,nombre FROM resultado_aprendizaje WHERE codigo_asignatura = %s',(asignatura))
+		cur.execute('SELECT id_resultado,nombre FROM resultado_aprendizaje WHERE codigo_asignatura = %s',(asignatura,))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)

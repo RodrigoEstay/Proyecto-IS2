@@ -40,6 +40,41 @@ def load_user(user_id):
 def index():
     return render_template("index.html")
 
+@app.route('/asignatura/<codigoAsignatura>/addEval', methods = ['GET', 'POST'])
+def addEval(codigoAsignatura = None):
+
+	if request.method == 'POST':
+		#SACAR DATOS DE LA EVALUACION
+		puntajes = []
+		cantItems = int(request.form.get("numItems"))
+		ptotal = 0
+		resultados = []
+		enunciados = []
+		comentarios = []
+		for i in range(1,cantItems+1):
+			puntajes.append(int(request.form.get("puntaje"+str(i))))
+			ptotal+=puntajes[-1]
+			resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
+			comentarios.append((request.form.get("COM-"+str(i))))
+			enunciados.append((request.form.get("EN-"+str(i))))
+		bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
+		for i in range(1,cantItems+1):
+			#bd.nuevo_Item(con,  ,puntajes[i-1],enunciados[i-1])
+			pass
+		return redirect(url_for('evaluacion.evaluation',asignaturaID = codigoAsignatura))
+
+
+	nombreas= bd.get_nombre_asignatura(con,codigoAsignatura)
+	print(nombreas)
+	asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
+
+	cantEval = len(bd.get_listaEvaluacionesAsignatura(con,codigoAsignatura,semester,year))
+
+	RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+	
+	return render_template('addEval.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
+
+
 @app.route("/login/", methods = ['GET', 'POST'])
 def login():
     
