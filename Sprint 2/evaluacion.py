@@ -22,6 +22,24 @@ def evaluation(asignaturaID):
 
 	return render_template('evaluacion/eval.html', evaluaciones=evaluaciones, asignatura=asignaturas)
 
+
+@bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/detalles")
+@login_required
+def detallesEval(asignaturaID, evalID):
+
+	asignatura = bd.get_nombre_asignatura(conn,asignaturaID)
+	evalIndex = request.args.get("evalIndex")
+	items = bd.get_ItemsEvaluacion(conn,evalID)
+
+	return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, items=items) 
+
+
+@bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/modificar", methods=['GET', 'POST'])
+@login_required
+def modificarEval(asignaturaID, evalID):
+
+	pass 
+
 @bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/addScore", methods=['GET', 'POST'])
 @login_required
 def addScore(asignaturaID, evalID):
