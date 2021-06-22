@@ -21,9 +21,6 @@
 							<input type="hidden" name="itemsID[]" id="itemID" value= "{{ item['id_item'] }}">
 							<score>/{{ item['puntaje_maximo'] }}</score>
 						</article>
-						{% if not loop.last %}
-							<hr>
-						{% endif %}
 					</div>
 					{% endfor %}
 				</div>
