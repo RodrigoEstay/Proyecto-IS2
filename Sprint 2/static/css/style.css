@@ -173,6 +173,7 @@ a:hover {
 	margin: 20px 20%;
 }
 
+
 .boton{
 	background-color: #008CBA;
 	border: none;
@@ -208,4 +209,87 @@ a:hover {
 .boton.addItem{
 	float:right;
 	margin:10px;
+}
+
+.itemInfo{
+	margin-top: 10px;
+}
+
+
+.detallesContainer{
+	display: table;
+	width: 100%;
+	height: auto;
+}
+.detallesContainer #evalInfoDetalles{
+	display: table-cell;
+	width: 30%;
+	padding-left: 10%;
+}
+.detallesContainer #itemsInfoDetalles{
+	display: table-cell;
+	width: 70%;
+}
+
+
+
+.card.itemsDetalles{
+	width: 60%;
+	margin-top: 20px;
+	margin: left;
+	display: block;
+}
+
+.itemInfoHeader{
+	font-size-adjust: 0.80;
+	display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.itemInfoHeader div{
+	display: table-cell;
+	padding-left: 3%;
+	padding-right: 10%;
+	padding-bottom: 2%;
+}
+
+.itemInfoHeader #left{
+	text-align: left;
+}
+
+.itemInfoHeader #right{
+	text-align: right;
+}
+
+.itemInfoEnunciado{
+	font-size-adjust: 0.55;
+	display: table;
+	width:100%;
+}
+
+.itemInfoEnunciado div{
+	padding-left: 3%;
+	padding-right: 10%;
+	display: table-cell;
+	width: 20%;
+}
+
+.itemInfoEnunciado #enunciado{
+	padding: 10px;
+	background-color: rgb(235,235,235);
+	background-size: 100% auto;
+	border-radius: 8px;
+	width:80%;
+}
+
+.itemInfoRA{
+	display: table;
+	width: 100%;
+}
+
+.itemInfoRA div{
+	display: table-cell;
+	width: 50%;
+	text-align: center;
 }

@@ -29,9 +29,17 @@ def detallesEval(asignaturaID, evalID):
 
 	asignatura = bd.get_nombre_asignatura(conn,asignaturaID)
 	evalIndex = request.args.get("evalIndex")
-	items = bd.get_ItemsEvaluacion(conn,evalID)
 
-	return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, items=items) 
+	items = bd.get_ItemsEvaluacion(conn,evalID)
+	items = sorted(items, key=lambda k:k["id_item"])
+
+	RAItems = [bd.get_ResultadosItem(conn, item["id_item"]) for item in items]
+
+	RAEval = bd.get_ResultadosAsignatura(conn, asignaturaID)
+	comentario = None
+
+	return render_template('evaluacion/detalles.html', asignatura=asignatura, evalIndex=evalIndex, items=items,
+		RAItems=RAItems, RAEval=RAEval) 
 
 
 @bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/modificar", methods=['GET', 'POST'])
