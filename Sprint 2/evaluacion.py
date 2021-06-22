@@ -31,7 +31,7 @@ def detallesEval(asignaturaID, evalID):
 	evalIndex = request.args.get("evalIndex")
 	items = bd.get_ItemsEvaluacion(conn,evalID)
 
-	return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, items=items) 
+	return render_template('evaluacion/detalles.html', asignatura=asignatura, evalIndex=evalIndex, items=items) 
 
 
 @bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/modificar", methods=['GET', 'POST'])
