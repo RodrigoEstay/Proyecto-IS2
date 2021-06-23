@@ -14,8 +14,8 @@
 			<input type="button" class="boton atras" value="Atras" onclick="history.back(-1)"/>
 		</div>
 		<div id="right">
-			<span>Gonzalo Rojas</span>
-			<img src="https://lh3.googleusercontent.com/proxy/r_eJ6mBl43oihvQVBx2KqogXDKOCcn8IPCs1EWvfc0On6Tsl3MC56O19J_8ZRo7Us3lQgoBl2mrvXbeQAAwn26EYu-oLdnwlSlXSkF0RnXMBQX9ZzGgNU7bE4z-Py8lSk23ChGhwrVGmBpGcrJLPMmnmQYO8BOFNF2X5PkCFBohW_ybyv-FY" style="height: 50px;">
+			<span class="name"><h4>{% block nombreProfesor %}{% endblock  %}</h4></span>
+			<img src="https://lh3.googleusercontent.com/proxy/r_eJ6mBl43oihvQVBx2KqogXDKOCcn8IPCs1EWvfc0On6Tsl3MC56O19J_8ZRo7Us3lQgoBl2mrvXbeQAAwn26EYu-oLdnwlSlXSkF0RnXMBQX9ZzGgNU7bE4z-Py8lSk23ChGhwrVGmBpGcrJLPMmnmQYO8BOFNF2X5PkCFBohW_ybyv-FY" style="height: 70px;">
 		</div>
 	</div>
 
@@ -25,6 +25,9 @@
 		</div>
 		<div id="subtitle">
 			{% block subtitle %}{% endblock %}
+		</div>
+		<div id="links">
+			<a href="{{url_for('logout')}}">Cerrar sesión</a> | <a href="{{url_for('asignaturas')}}">Ir al inicio</a>
 		</div>
 	</div>
 

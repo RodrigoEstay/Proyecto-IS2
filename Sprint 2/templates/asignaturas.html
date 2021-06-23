@@ -1,57 +1,39 @@
 {% extends 'encabezado.html' %}
-{% block headerEnc %}{% block titleEnc %}Asignaturas{% endblock %}{% endblock %}
-
+{% block headerEnc %}{% block titleEnc %}ASIGNATURAS{% endblock %}{% endblock %}
+{% block nombreProfesor %} {{nombreProfesor}} {% endblock  %}
 {% block content %}
 
 <!DOCTYPE html>
 <html lang="es">
 	<head>
   		<meta charset="utf-8">
-  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/asignaturas.css') }}">
 		  <title>Asignaturas</title>
     	
   	</head>
   	<body>
-		  <!--
-  		<div class = "row">
-  			<div class = "detalles">
-  				
-  			</div>
-  			<div class = "opciones">
-  					
-  			</div>
-  		</div>
-    	-->
-    	<div class = "row">
-    		
-    		<div class = "content">
-    			<div class="wrapper">
-    			{% for ramo in ramos %}
-            <a href="{{url_for('infAsignatura',codigoAsignatura=ramo.codigo)}}">
-              <div class="card ramo">
-              <div class="contAsign" style = "height: 50%">
-                <h4><b>{{ramo.nombre_asignatura}}</b></h4> 
-                <h5>Semestre {{semester}} - {{year}}</h5>
-                <h5>{{ramo.num_alumnos}} Estudiantes</h5>
-              </div>
-              
-              <img src="https://lh3.googleusercontent.com/g0Jw-I6-gH2DVCpnl3u8QKZVT_meR9lcJlpyeSZ-MyvwLnyEZvgyrY5frldA8HCv55s=w280" alt="grafico" style = "height:50%">
-              
-              
-              
-            </div>
-            </a>
-            
-    				
-    			{% endfor %}
-    		</div>
-    		
-		</div>
-    	</div>
-
-		<div class = "logout">
-			<a href="{{url_for('logout')}}">Cerrar sesión</a>
-
+    	<div id="container" style="display: block;">
+			<div class="box_container">
+				<div class = "card">
+					{% for ramo in ramos %}
+						<div class="box_card">
+							<div>
+								<a href="{{url_for('infAsignatura',codigoAsignatura=ramo.codigo)}}" class="link">
+									<div id="header_card">
+										<h3 class="NombreAsignatura" title={{ramo.nombre_asignatura}} >{{ramo.nombre_asignatura}} II</h3>
+										<div class="SemestreActual"> <h4>Semestre {{semester}} - {{year}}</h4></div>
+										<div class="CantEstudiantes"> <h5>{{ramo.num_alumnos}} Estudiantes</h5></div></h5>
+									</div>
+									<div>
+										<img class="grafico" src="https://lh3.googleusercontent.com/g0Jw-I6-gH2DVCpnl3u8QKZVT_meR9lcJlpyeSZ-MyvwLnyEZvgyrY5frldA8HCv55s=w280" alt="grafico">
+									</div>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+	
+			</div>
 		</div>
     	
   	</body>

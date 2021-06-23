@@ -170,6 +170,20 @@ def get_ClasesImpartidas(con,prof_id,semestre,year):
 	cur.close()
 	return lista
 
+def get_CodigosClasesImpartidas(con,prof_id,semestre,year):
+	cur = con.cursor()
+	lista = []
+	try:		
+		cur.execute('SELECT I.codigo_asignatura FROM imparte as I INNER JOIN (SELECT codigo_asignatura, COUNT(id_alumno) as num_alumnos FROM cursa GROUP BY codigo_asignatura) C ON C.codigo_asignatura=I.codigo_asignatura INNER JOIN (SELECT codigo, nombre FROM asignatura) A ON A.codigo=I.codigo_asignatura WHERE I.id_profesor = %s AND I.semestre = %s AND I.año = %s',(prof_id,semestre,year))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos")
+		print(error)
+	else:
+		for row in cur:
+			lista.append(row[0])
+	cur.close()
+	return lista
+
 def get_puntajesObtenidos(con,alumno,evaluacion):
 	cur = con.cursor()
 	lista = []

@@ -43,43 +43,51 @@ def index():
 
 @app.route('/asignatura/<codigoAsignatura>/addEval', methods = ['GET', 'POST'])
 def addEval(codigoAsignatura = None):
+	idProfesor = models.Users.get_id(current_user)
+	nombreProfesor = models.Users.get_name(current_user)
+	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
-	if request.method == 'POST':
-		#SACAR DATOS DE LA EVALUACION
-		puntajes = []
-		cantItems = int(request.form.get("numItems"))
-		ptotal = 0
-		resultados = []
-		enunciados = []
-		comentarios = []
-		for i in range(1,cantItems+1):
-			puntajes.append(int(request.form.get("puntaje"+str(i))))
-			ptotal+=puntajes[-1]
-			resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
-			comentarios.append((request.form.getlist("COM-"+str(i)+"[]")))
-			enunciados.append((request.form.get("EN-"+str(i))))
-		print(comentarios)
-		print(resultados)
-		idEval = bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
-		for i in range(1,cantItems+1):
-			idItem = bd.nuevo_Item(con, idEval ,puntajes[i-1],enunciados[i-1])
-			for res in resultados[i-1]:
-				res = ast.literal_eval(res)
-				print(res)
-				bd.asociar_ResultadoItem(con,idItem,res[0],comentarios[i-1][int(res[1])-1],1)
-			
-		return redirect(url_for('evaluacion.evaluation',asignaturaID = codigoAsignatura))
+	if codigoAsignatura in asignaturasProfesor:
+
+		if request.method == 'POST':
+			#SACAR DATOS DE LA EVALUACION
+			puntajes = []
+			cantItems = int(request.form.get("numItems"))
+			ptotal = 0
+			resultados = []
+			enunciados = []
+			comentarios = []
+			for i in range(1,cantItems+1):
+				puntajes.append(int(request.form.get("puntaje"+str(i))))
+				ptotal+=puntajes[-1]
+				resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
+				comentarios.append((request.form.getlist("COM-"+str(i)+"[]")))
+				enunciados.append((request.form.get("EN-"+str(i))))
+			print(comentarios)
+			print(resultados)
+			idEval = bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
+			for i in range(1,cantItems+1):
+				idItem = bd.nuevo_Item(con, idEval ,puntajes[i-1],enunciados[i-1])
+				for res in resultados[i-1]:
+					res = ast.literal_eval(res)
+					print(res)
+					bd.asociar_ResultadoItem(con,idItem,res[0],comentarios[i-1][int(res[1])-1],1)
+				
+			return redirect(url_for('evaluacion.evaluation',asignaturaID = codigoAsignatura))
 
 
-	nombreas= bd.get_nombre_asignatura(con,codigoAsignatura)
-	print(nombreas)
-	asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
+		nombreas= bd.get_nombre_asignatura(con,codigoAsignatura)
+		print(nombreas)
+		asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
 
-	cantEval = len(bd.get_listaEvaluacionesAsignatura(con,codigoAsignatura,semester,year))
+		cantEval = len(bd.get_listaEvaluacionesAsignatura(con,codigoAsignatura,semester,year))
 
-	RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
-	return render_template('addEval2.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
-	#return render_template('addEval.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
+		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+		return render_template('addEval2.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA, nombreProfesor = nombreProfesor)
+		#return render_template('addEval.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
+
+	else:
+		return redirect('/')
 
 
 @app.route("/login/", methods = ['GET', 'POST'])
@@ -97,7 +105,7 @@ def login():
                 if not next_page or url_parse(next_page).netloc != '':
                     next_page = url_for('asignaturas')
                 return redirect(next_page)
-    return render_template("login.html", formul = form)
+    return render_template("login/login.html", formul = form)
 
 @app.route('/logout/')
 def logout():
@@ -108,21 +116,29 @@ def logout():
 @login_required
 def asignaturas():
 	idProfesor = models.Users.get_id(current_user)
+	nombreProfesor = models.Users.get_name(current_user)
 	ramos =	bd.get_ClasesImpartidas(con, idProfesor, 1, 2021)
 	
-	return render_template('asignaturas.html',profesor = idProfesor, ramos = ramos, semester = semester, year = year)
+	return render_template('asignaturas.html',profesor = idProfesor, ramos = ramos, semester = semester, year = year, nombreProfesor = nombreProfesor)
 
 
 @app.route('/asignatura/<codigoAsignatura>/')
 @login_required
 def infAsignatura(codigoAsignatura = None):
-	nombreas = bd.get_nombre_asignatura(con,codigoAsignatura)
-	print(nombreas)
-	asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
-	alumnos = bd.get_listaAlumnosAsignaturaSemestre(con,codigoAsignatura,semester,year)
-	RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
-	return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos,RAs = RA)
 
+	idProfesor = models.Users.get_id(current_user)
+	nombreProfesor = models.Users.get_name(current_user)
+	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
+
+	if codigoAsignatura in asignaturasProfesor:
+		nombreas = bd.get_nombre_asignatura(con,codigoAsignatura)
+		print(nombreas)
+		asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
+		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con,codigoAsignatura,semester,year)
+		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+		return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos,RAs = RA, nombreProfesor = nombreProfesor)
+	else:
+		return redirect('/')
 
 if __name__ == "__main__":
     db_alchemy.create_all()

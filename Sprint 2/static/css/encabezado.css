@@ -9,6 +9,7 @@
 	font-size: 16px;
 	border-radius: 4px;
 	transition-duration: 0.4s;
+	flex-direction: column;
 }
 
 .boton:hover {
@@ -53,12 +54,12 @@
 
 .encabezado #up #right img{
 	vertical-align: middle;
-	border-radius: 25px;
+	border-radius: 30px;
 }
 
 .encabezado #down{
 	display: block;
-	padding: 0 1% 0 2%;
+	padding: 0 1% 1% 7%;
 }
 
 .encabezado #down #title{
@@ -67,4 +68,14 @@
 
 .encabezado #down #subtitle{
 	font-size: 27px;
+}
+
+.name{
+	padding-right: 15px;
+	display: inline-block;
+	flex-direction: column;
+}
+
+.encabezado #links{
+	text-align: right;
 }
