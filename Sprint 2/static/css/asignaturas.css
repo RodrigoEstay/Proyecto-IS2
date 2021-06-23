@@ -1,0 +1,100 @@
+.container{
+    padding: 2px 16px;
+    width: 100%;
+}
+
+ .box_container{
+     padding-top: 24px;
+     padding: 12px 0.125rem 0;
+}
+
+.card{
+	padding-left: 300px;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+
+.box_card{
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 30%);
+    width: 262px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 36px 0 0 36px;
+    cursor: pointer;
+    border-radius: 10px;
+	flex-direction: column;
+}
+
+.box_card:hover{
+    box-shadow: 0 4px 10px rgb(0 0 0 / 50%);
+}
+
+#header_card{
+    position: relative;
+    padding: 12px 18px 0;
+    box-sizing: border-box;    
+    background-image: linear-gradient(rgb(182, 212, 199), rgb(23, 158, 79));
+    height: 160px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* border-style: outset; */
+}
+
+.NombreAsignatura{
+    line-height: 1.3;
+    font-size: 1.5rem;
+    /* font-weight: bold; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 20px;
+}
+
+.SemestreActual{
+    line-height: 1.3;
+    padding: 0;
+    margin-top: 3px;
+}
+
+.CantEstudiantes{
+    line-height: 1.3;
+    font-size: 12px;
+    height: 1rem;
+    margin-top: -10px;
+} 
+
+.grafico{
+    display: block;
+    margin: auto;
+    height: 20%;
+    margin-left: -10px;
+}
+
+h3{
+    color: rgb(2, 2, 2);
+    text-shadow: 1px 1px 2px #000000;
+	font-size: 2em;
+}
+
+h4{
+    color: rgb(53, 60, 61);
+    font-size: 18px;
+}
+
+h5{
+    color: rgb(53, 60, 61);
+    font-size: 14px;
+}
+
+
+
+

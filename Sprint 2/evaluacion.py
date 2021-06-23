@@ -6,46 +6,64 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-conn = bd.connect()
+#conn = bd.connect()
 bp = Blueprint('evaluacion', __name__)
 
 semester = 1
 year = 2021
 
+import models
+from main import con
+
 @bp.route("/asignatura/<asignaturaID>/eval")
 @login_required
 def evaluation(asignaturaID):
-	evaluaciones = bd.get_listaEvaluacionesAsignatura(conn,asignaturaID,semester,year)
-	asignaturas = {}
-	asignaturas['name'] = bd.get_nombre_asignatura(conn,asignaturaID)
-	asignaturas['ID'] = asignaturaID
 
-	return render_template('evaluacion/eval.html', evaluaciones=evaluaciones, asignatura=asignaturas)
+	idProfesor = models.Users.get_id(current_user)
+	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
+
+	if asignaturaID in asignaturasProfesor:
+		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,asignaturaID,semester,year)
+		asignaturas = {}
+		asignaturas['name'] = bd.get_nombre_asignatura(con,asignaturaID)
+		asignaturas['ID'] = asignaturaID
+
+		return render_template('evaluacion/eval.html', evaluaciones=evaluaciones, asignatura=asignaturas)
+	else:
+		return redirect('/')
 
 
 @bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/detalles")
 @login_required
 def detallesEval(asignaturaID, evalID):
 
-	asignatura = bd.get_nombre_asignatura(conn,asignaturaID)
-	evalIndex = request.args.get("evalIndex")
+	idProfesor = models.Users.get_id(current_user)
+	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
-	items = bd.get_ItemsEvaluacion(conn,evalID)
-	items = sorted(items, key=lambda k:k["id_item"])
+	if asignaturaID in asignaturasProfesor:
 
-	RAItems = [bd.get_ResultadosItem(conn, item["id_item"]) for item in items]
-	temp = []
-	for raitems in RAItems:
-		for raitem in raitems:
-			temp.append({'id_resultado':raitem["id_resultado"],'nombre':raitem["nombre"]})
+		asignatura = bd.get_nombre_asignatura(con,asignaturaID)
+		evalIndex = request.args.get("evalIndex")
 
-	RAEval = list({v['id_resultado']:v for v in temp}.values())
+		items = bd.get_ItemsEvaluacion(con,evalID)
+		items = sorted(items, key=lambda k:k["id_item"])
 
-	#RAEval = bd.get_ResultadosAsignatura(conn, asignaturaID)
-	comentario = None
+		RAItems = [bd.get_ResultadosItem(con, item["id_item"]) for item in items]
+		temp = []
+		for raitems in RAItems:
+			for raitem in raitems:
+				temp.append({'id_resultado':raitem["id_resultado"],'nombre':raitem["nombre"]})
 
-	return render_template('evaluacion/detalles.html', asignatura=asignatura, evalIndex=evalIndex, items=items,
-		RAItems=RAItems, RAEval=RAEval) 
+		RAEval = list({v['id_resultado']:v for v in temp}.values())
+
+		#RAEval = bd.get_ResultadosAsignatura(con, asignaturaID)
+		comentario = None
+
+		return render_template('evaluacion/detalles.html', asignatura=asignatura, evalIndex=evalIndex, items=items,
+			RAItems=RAItems, RAEval=RAEval) 
+	
+	else:
+		return redirect('/')
 
 
 @bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/modificar", methods=['GET', 'POST'])
@@ -58,23 +76,29 @@ def modificarEval(asignaturaID, evalID):
 @login_required
 def addScore(asignaturaID, evalID):
 
-	if request.method == "POST":
+	idProfesor = models.Users.get_id(current_user)
+	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
-		puntajes = request.form.getlist("scores[]")
-		matAlumno = request.form.get("alumno")
-		itemsID = request.form.getlist("itemsID[]")
+	if asignaturaID in asignaturasProfesor:
+		if request.method == "POST":
 
-		for i in range(len(puntajes)):
-			bd.ingresar_Puntaje(conn, matAlumno, itemsID[i], puntajes[i])
+			puntajes = request.form.getlist("scores[]")
+			matAlumno = request.form.get("alumno")
+			itemsID = request.form.getlist("itemsID[]")
 
-	evalIndex = request.args.get("evalIndex")
+			for i in range(len(puntajes)):
+				bd.ingresar_Puntaje(con, matAlumno, itemsID[i], puntajes[i])
 
-	evaluaciones = bd.get_listaEvaluacionesAsignatura(conn,asignaturaID,semester,year)
-	asignatura = bd.get_nombre_asignatura(conn,asignaturaID)
-	
-	items = bd.get_ItemsEvaluacion(conn,evalID)
-	
-	alumnos = bd.get_listaAlumnosAsignaturaSemestre(conn, asignaturaID, semester, year)
+		evalIndex = request.args.get("evalIndex")
 
-	return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items)
+		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,asignaturaID,semester,year)
+		asignatura = bd.get_nombre_asignatura(con,asignaturaID)
+		
+		items = bd.get_ItemsEvaluacion(con,evalID)
+		
+		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con, asignaturaID, semester, year)
 
+		return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items)
+
+	else:
+		return redirect('/')
