@@ -71,29 +71,31 @@
     	
 		<template id = "item">
     		<div class ="elementoItem">
-    		   	<div class = "itemHeader">
-					<div class = "item-titulo">
-						<h2>Item {NITEM}</h2>
-					</div>
-					<input class = "puntItem" type="number" min="0" name="puntaje{NITEM}" placeholder = "Ingrese puntaje máximo" required>
-				</div>
-				<div class = "row">
-					<div class = "RA-check">
-						{% for ra in RAs %}
-							<div>
-								<input type="checkbox" id="RA-{NITEM}-{{loop.index}}" name="RA-{NITEM}[]" value="{{ra.id_resultado}}">
-								<label for="RA-{NITEM}-{{loop.index}}">{{ra.nombre}}</label>
-								
-							</div>
-							
-						{% endfor %}
-					</div>
-					<div class = "item-data">
-						<textarea class = "enunciado" id="EN-{NITEM}" name="EN-{NITEM}" form = "items-eval" placeholder = "Ingrese enunciado..."></textarea>
-						<textarea class = "comentario" id="COM-{NITEM}" name="COM-{NITEM}" form = "items-eval" placeholder = "Añada un comentario..."></textarea>  
-					</div>
-				</div>
-			</div>
+    				<div class = "itemHeader">
+    					<div class = "item-titulo">
+    						<h2>Item {NITEM}</h2>
+    					</div>
+    				<div class="puntItemContainer">
+    					<input class = "puntItem" type="number" min="0" name="puntaje1" placeholder = "Ingrese puntaje máximo" required>
+    				</div>
+    				</div>
+    				<div class = "row">
+    					<div class = "RA-check">
+    						{% for ra in RAs %}
+    							<div class="RA-item">
+    								<input type="checkbox" id="RA-1-{{loop.index}}" name="RA-1[]" value="{{ra.id_resultado}}">
+    								<label for="RA-1-{{loop.index}}">{{ra.nombre}}</label>
+    								
+    							</div>
+    							
+    						{% endfor %}
+    					</div>
+    					<div class = "item-data">
+    						<textarea class = "enunciado" id="EN-1" name="EN-1" form = "items-eval" placeholder = "Ingrese enunciado..."></textarea>
+    						<textarea class = "comentario" id="COM-1" name="COM-1" form = "items-eval" placeholder = "Añada un comentario..."></textarea>  
+    					</div>
+    				</div>
+    			</div>
     	</template>
     	
   	</body>
