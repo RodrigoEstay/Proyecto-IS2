@@ -32,12 +32,14 @@
     					<div class = "item-titulo">
     						<h2>Item 1</h2>
     					</div>
+    				<div class="puntItemContainer">
     					<input class = "puntItem" type="number" min="0" name="puntaje1" placeholder = "Ingrese puntaje máximo" required>
+    				</div>
     				</div>
     				<div class = "row">
     					<div class = "RA-check">
     						{% for ra in RAs %}
-    							<div>
+    							<div class="RA-item">
     								<input type="checkbox" id="RA-1-{{loop.index}}" name="RA-1[]" value="{{ra.id_resultado}}">
     								<label for="RA-1-{{loop.index}}">{{ra.nombre}}</label>
     								
