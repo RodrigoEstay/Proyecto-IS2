@@ -6,7 +6,13 @@
 	
 {% endblock %}
 
+
+
+
 {% block list %}
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/detalles.css') }}">
+	</head>
 	{% if items %}
 		<div class="detallesContainer">
 			<div id="evalInfoDetalles">
@@ -30,7 +36,21 @@
 							<div>Enunciado:</div>
 							<div id="enunciado">{{ item['enunciado'] }}</div>
 						</div>
-						<div class="itemInfoRA">
+						<table class="itemInfoRA">
+
+							<tr>
+								<th>Resultados de Aprendizaje</th>
+								<th>Comentarios</th>
+							</tr>
+							{% for RA in RAItems[loop.index0] %}
+								<tr>
+									<td>{{ RA["nombre"] }}</td>
+									<td>{{ RA["comentario"] }}</td>
+								</tr>
+							{% endfor %}
+
+
+							<!--
 							<div>
 								<p>Resultados de aprendizaje:</p>
 								{% for RA in RAItems[loop.index0] %}
@@ -43,7 +63,8 @@
 								<span>{{ RAItems[loop.index0][0]["comentario"] }}</span>
 								{% endif %}
 							</div>
-						</div>
+							-->
+						</table>
 					</div>
 				{% endfor %}
 			</div>
