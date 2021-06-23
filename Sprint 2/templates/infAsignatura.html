@@ -9,30 +9,19 @@
 	<head>
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/infAsignatura.css') }}">
   	</head>
-  	<body>
-  		<div class = "row">
-  			<div class = "detalles">
-  				
-  				<h1>{{asignatura.nombre}}</h1>
-  				
-  				
-  			</div>
-  			<div class = "opciones">
-            <a href="{{url_for('addEval', codigoAsignatura=asignatura.codigo)}}" class = "boton" >
-  					 Crear evaluacion
-            </a>
-            <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}" class = "boton">
-  					  Ver evaluacion
-            </a>
-  					
-  			</div>
-  		</div>
-    	
+  	<body>    	
     	<div class = "row">
-    		<div class = "sidebar">
+    		<div class = "sidebar" id="asignatura-sidebar">
+          <p id="res-title">Evaluaciones</p>
+          <div id="opciones">
+            <a href="{{url_for('addEval', codigoAsignatura=asignatura.codigo)}}" class = "boton" id="eval-btn">Crear evaluación</a>
+            <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}" class = "boton" id="eval-btn">Ver evaluación</a>
+          </div>
+          <p id="res-title"> Resultados de Aprendizaje</p>
     			{% for ra in RAs %}
-            <p>{{ra.nombre}}</p>
+            <p id="res-nombre">{{ra.nombre}}</p>
           {% endfor %}
     		</div>
     		<div class = "content">
@@ -42,7 +31,7 @@
               <img src="http://www.iit.udec.cl/wp-content/uploads/2019/07/Gonzalo_Rojas.jpg" alt="Avatar" style="width:33%">
               <div class="container">
                 <h4><b>{{alumno.nombre}}</b></h4> 
-                <p>Matricula: {{alumno.num_matricula}}</p> 
+                <p>Matrícula: {{alumno.num_matricula}}</p> 
               </div>
             </div>
     				
