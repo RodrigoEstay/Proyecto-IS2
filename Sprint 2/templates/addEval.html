@@ -1,3 +1,10 @@
+
+{% extends 'encabezado.html' %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura.nombre}}{% endblock %}{% endblock %}
+{% block subtitle %}Evaluación {{nEval}}{% endblock %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,7 +18,7 @@
   		<div class = "row">
   			<div class = "detalles">
   				
-  				<h1>{{asignatura.nombre}}</h1>
+  				<h1></h1>
   				<h3>Evaluación {{nEval}}</h3>
   				
   			</div>
@@ -89,3 +96,5 @@
     	
   	</body>
 </html>
+
+{% endblock %}

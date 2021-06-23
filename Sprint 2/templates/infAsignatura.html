@@ -1,9 +1,14 @@
+
+{% extends 'encabezado.html' %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura.nombre}}{% endblock %}{% endblock %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="es">
 	<head>
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    	<title>{{asignatura.nombre}}</title>
   	</head>
   	<body>
   		<div class = "row">
@@ -49,3 +54,5 @@
     	
   	</body>
 </html>
+
+{% endblock %}

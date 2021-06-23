@@ -1,0 +1,70 @@
+.boton{
+	background-color: #008CBA;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+	transition-duration: 0.4s;
+}
+
+.boton:hover {
+	background-color: #4CAF50;
+	box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	color: white;
+}
+
+.boton:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+  transition: 0.1s
+}
+
+.boton.atras{
+	padding: 10px 15px;
+}
+
+.encabezado{
+	display: block;
+	background-color: rgb(235,235,235);
+	width: 100%;
+	margin: 0 0 10px 0;
+}
+
+.encabezado #up{
+	padding: 0 1% 0 2%;
+	display: table;
+	width: 97%;
+}
+.encabezado #up #left{
+	padding: 0.4% 0 0 0;
+	display: table-cell;
+	width: 30%;
+}
+.encabezado #up #right{
+	padding: 0.4% 0 0 0;
+	width: 70%;
+	text-align: right;
+	display: table-cell;
+}
+
+.encabezado #up #right img{
+	vertical-align: middle;
+	border-radius: 25px;
+}
+
+.encabezado #down{
+	display: block;
+	padding: 0 1% 0 2%;
+}
+
+.encabezado #down #title{
+	font-size: 32px;
+}
+
+.encabezado #down #subtitle{
+	font-size: 27px;
+}

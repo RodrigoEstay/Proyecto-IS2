@@ -1,6 +1,6 @@
 {% extends 'listas_base.html' %}
 {% block header %}
-	<h1>{% block title %}{{ asignatura["name"] }}{% endblock %}</h1>
+	{% block title %}{{ asignatura["name"] }}{% endblock %}
 {% endblock %}
 
 {% block list %}
