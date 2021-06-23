@@ -28,44 +28,15 @@ h5{
 }
 
 .itemHeader{
-	background-color: slategray;
-	background-size: 100% auto;
-	font-weight: bold;
-	color: white;
-	border-radius: 8px;
-	font-size-adjust: 0.80;
-	margin-bottom: 2%;
-	display: table;
-    width: 100%;
-    table-layout: fixed;
-	/*display:flex;*/
-}
-.item-titulo{
-	width:150px;
-	height:50px;
-	display: table-cell;
-	width: 75%;
-	margin: auto;
-	text-align:left;
-	padding-left: 3%;
-	padding-right: 10%;
-	padding-bottom: 1%;
-	padding-top: 1%;
-	
-}
-.puntItemContainer{
-	display: table-cell;
-	text-align: right;
-	width: 25%;
+	display:flex;
 }
 .puntItem{
-	margin-right: 10%;
+	float:left;
+	margin: 0 20% 0 0;
 }
 .enunciado{
 	height:300px;
 	margin: 5px;
-	border-color: slategray;
-	border-radius: 8px;
 }
 .enunciado2{
 	height:300px;
@@ -78,8 +49,6 @@ h5{
 	width: 50%;
 	float:right;
 	margin: 5px;
-	border-color: slategray;
-	border-radius: 8px;
 }
 .comentario2{
 	height:60px;
@@ -101,16 +70,28 @@ h5{
 	width: 50%;
 	
 }
-
+.item-titulo{
+	width:150px;
+	height:50px;
+	float:center;
+	border:1px solid black;
+	margin: auto;
+	text-align:center;
+	
+}
+.RA-item{
+	width:30%;
+	float: left;
+	overflow: auto;
+}
 .RA-check{
 	width:20%;
-	float: left;
+	float: center;
 	height:350px;
 	display:flex;
 	overflow: auto;
 	flex-direction: column;
-	border: 2px solid slategray;
-	border-radius: 8px;
+	border: 2px solid black;
 }
 .RA-check2{
 	width:50%;
@@ -121,15 +102,8 @@ h5{
 	flex-direction: column;
 	margin: 10px 0 10px 10%;
 }
-.RA-item{
-	margin-top: 2%;
-	margin-bottom: 2%;
-}
-.RA-item{
-	width:30%;
-	float: left;
-	overflow: auto;
-}
+
+
 .wrapper {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);

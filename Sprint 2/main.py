@@ -9,7 +9,7 @@ from login import LoginForm
 
 import evaluacion
 import modulo8 as bd
-
+import ast
 
 
 dbdir = 'postgresql://restay2016:IS2equipo4@plop.inf.udec.cl/restay2016'
@@ -56,13 +56,17 @@ def addEval(codigoAsignatura = None):
 			puntajes.append(int(request.form.get("puntaje"+str(i))))
 			ptotal+=puntajes[-1]
 			resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
-			comentarios.append((request.form.get("COM-"+str(i))))
+			comentarios.append((request.form.getlist("COM-"+str(i)+"[]")))
 			enunciados.append((request.form.get("EN-"+str(i))))
+		print(comentarios)
+		print(resultados)
 		idEval = bd.nueva_Evaluacion(con,codigoAsignatura,semester,year,ptotal)
 		for i in range(1,cantItems+1):
 			idItem = bd.nuevo_Item(con, idEval ,puntajes[i-1],enunciados[i-1])
 			for res in resultados[i-1]:
-				bd.asociar_ResultadoItem(con,idItem,res,comentarios[i-1],1)
+				res = ast.literal_eval(res)
+				print(res)
+				bd.asociar_ResultadoItem(con,idItem,res[0],comentarios[i-1][int(res[1])-1],1)
 			
 		return redirect(url_for('evaluacion.evaluation',asignaturaID = codigoAsignatura))
 
@@ -74,8 +78,8 @@ def addEval(codigoAsignatura = None):
 	cantEval = len(bd.get_listaEvaluacionesAsignatura(con,codigoAsignatura,semester,year))
 
 	RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
-	
-	return render_template('addEval.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
+	return render_template('addEval2.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
+	#return render_template('addEval.html',asignatura = asignatura,nEval = cantEval + 1, RAs = RA)
 
 
 @app.route("/login/", methods = ['GET', 'POST'])
