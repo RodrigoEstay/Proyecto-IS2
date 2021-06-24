@@ -7,9 +7,12 @@
 {% endblock %}
 
 {% block list %}
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/addScore.css') }}">
+	</head>
 	{% if items %}
 		<form method='POST'>
-			<div class="row">
+			<div class="row" id="row-container">
 			
 				<div class="items">
 					{% for item in items %}
@@ -24,17 +27,17 @@
 					</div>
 					{% endfor %}
 				</div>
-
-				<div class="lista_clase">
-					{% for alumn in alumnos %}
-						<input type="radio" id="{{ alumn['nombre'] }}" name=alumno value="{{ alumn['num_matricula'] }}" required>
-						<label for="{{ alumn['nombre'] }}">{{ alumn['nombre'] }} </label>
-						{% if not loop.last %}
-							<br>
-						{% endif %}
-					{% endfor %}
+				<div id="lista-container">
+					<div class="lista_clase">
+						{% for alumn in alumnos %}
+							<input type="radio" id="{{ alumn['nombre'] }}" name=alumno value="{{ alumn['num_matricula'] }}" required>
+							<label for="{{ alumn['nombre'] }}">{{ alumn['nombre'] }} </label>
+							{% if not loop.last %}
+								<br>
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
-
 			</div>
 
 			<input class='boton submitItems' type='submit' value='Guardar puntaje'>

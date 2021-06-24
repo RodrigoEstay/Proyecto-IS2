@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{{ url_for('static', filename= 'css/encabezado.css') }}">
 </head>
 
@@ -11,24 +12,23 @@
 
 	<div id="up">
 		<div id="left">
-			<input type="button" class="boton atras" value="Atras" onclick="history.back(-1)"/>
+			<button class="boton atras" onclick="history.back(-1)"><i class="fa fa-arrow-left"></i></button>
+		</div>
+		<div id="title">
+			{% block titleEnc %}{% endblock %}
+		</div><div id="subtitle">
+			{% block subtitle %}{% endblock %}
 		</div>
 		<div id="right">
 			<span class="name"><h4>{% block nombreProfesor %}{% endblock  %}</h4></span>
 			<img src="https://lh3.googleusercontent.com/proxy/r_eJ6mBl43oihvQVBx2KqogXDKOCcn8IPCs1EWvfc0On6Tsl3MC56O19J_8ZRo7Us3lQgoBl2mrvXbeQAAwn26EYu-oLdnwlSlXSkF0RnXMBQX9ZzGgNU7bE4z-Py8lSk23ChGhwrVGmBpGcrJLPMmnmQYO8BOFNF2X5PkCFBohW_ybyv-FY" style="height: 70px;">
+			<div id="down">
+				<div id="links">
+					<a href="{{url_for('logout')}}">Cerrar sesión</a> | <a href="{{url_for('asignaturas')}}">Ir al inicio</a>
+				</div>
+			</div>
 		</div>
-	</div>
-
-	<div id="down">
-		<div id="title">
-			{% block titleEnc %}{% endblock %}
-		</div>
-		<div id="subtitle">
-			{% block subtitle %}{% endblock %}
-		</div>
-		<div id="links">
-			<a href="{{url_for('logout')}}">Cerrar sesión</a> | <a href="{{url_for('asignaturas')}}">Ir al inicio</a>
-		</div>
+		
 	</div>
 
 </div>

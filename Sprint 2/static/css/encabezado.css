@@ -43,11 +43,12 @@
 .encabezado #up #left{
 	padding: 0.4% 0 0 0;
 	display: table-cell;
-	width: 30%;
+	vertical-align: middle;
+	width: auto;
 }
 .encabezado #up #right{
 	padding: 0.4% 0 0 0;
-	width: 70%;
+	width: 50%;
 	text-align: right;
 	display: table-cell;
 }
@@ -62,12 +63,22 @@
 	padding: 0 1% 1% 7%;
 }
 
-.encabezado #down #title{
-	font-size: 32px;
+.encabezado #title{
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 1.5em;
+	width: auto;
+	padding-left: 0%;
+	margin-left: 0%;
 }
 
-.encabezado #down #subtitle{
-	font-size: 27px;
+.encabezado #subtitle{
+	display: table-cell;
+	width: auto;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 1.5em;
 }
 
 .name{
@@ -78,4 +89,5 @@
 
 .encabezado #links{
 	text-align: right;
+	margin-top: 2%;
 }
