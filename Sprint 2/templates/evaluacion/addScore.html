@@ -28,6 +28,7 @@
 					{% endfor %}
 				</div>
 				<div id="lista-container">
+					<h2>Alumnos</h2>
 					<div class="lista_clase">
 						{% for alumn in alumnos %}
 							<input type="radio" id="{{ alumn['nombre'] }}" name=alumno value="{{ alumn['num_matricula'] }}" required>
