@@ -27,7 +27,7 @@
     			<div class="wrapper">
     			{% for alumno in alumnos %}
             <div class="card">
-              <img src="http://www.iit.udec.cl/wp-content/uploads/2019/07/Gonzalo_Rojas.jpg" alt="Avatar" style="width:33%">
+              <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" style="width:33%">
               <div class="container">
                 <h4><b>{{alumno.nombre}}</b></h4> 
                 <p>Matrícula: {{alumno.num_matricula}}</p> 
