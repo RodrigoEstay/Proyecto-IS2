@@ -12,14 +12,13 @@ bp = Blueprint('evaluacion', __name__)
 semester = 1
 year = 2021
 
-import models
 from main import con
 
 @bp.route("/asignatura/<asignaturaID>/eval")
 @login_required
 def evaluation(asignaturaID):
 
-	idProfesor = models.Users.get_id(current_user)
+	idProfesor = current_user.id
 	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
 	if asignaturaID in asignaturasProfesor:
@@ -37,7 +36,7 @@ def evaluation(asignaturaID):
 @login_required
 def detallesEval(asignaturaID, evalID):
 
-	idProfesor = models.Users.get_id(current_user)
+	idProfesor = current_user.id
 	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
 	if asignaturaID in asignaturasProfesor:
@@ -76,7 +75,7 @@ def modificarEval(asignaturaID, evalID):
 @login_required
 def addScore(asignaturaID, evalID):
 
-	idProfesor = models.Users.get_id(current_user)
+	idProfesor = current_user.id
 	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
 	if asignaturaID in asignaturasProfesor:

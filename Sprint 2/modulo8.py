@@ -2,6 +2,7 @@ import psycopg2
 import hashlib
 from os import system, name
 
+
 DB_NAME = "restay2016"
 DB_USER = "restay2016"
 DB_PASSWORD = "IS2equipo4"
@@ -285,23 +286,82 @@ def ingresar_Puntaje(con,alumno,item,puntaje):
 		con.commit()
 	cur.close()
 
+####################### LOGIN ###########################################################
 
-def login(con,email,password):
+def login(con,email):
 	cur=con.cursor()
-	hashpass = hashlib.md5(password)
-	success = False
+	success = True
 	lista = []
 	try:		
-		cur.execute('SELECT profesor.rut FROM profesor WHERE profesor.email = %s AND profesor.password = %s',(email,hashpass))
+		cur.execute('SELECT profesor.rut FROM profesor WHERE profesor.email = %s',(email,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos AQUI1")
+		print(error)
+	else:
+		if cur.rowcount == 0:
+			success=False
+	
+	cur.close()
+	return success
+
+def get_rut_profesor(con, email):
+	cur=con.cursor()
+	try:		
+		cur.execute('SELECT profesor.rut FROM profesor WHERE profesor.email = %s',(email,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos AQUI2")
+		print(error)
+	else:
+		rutProfesor = cur.fetchone()
+	cur.close()
+	return rutProfesor
+
+def get_password_profesor(con, email):
+	cur=con.cursor()
+	try:		
+		cur.execute('SELECT profesor.password FROM profesor WHERE profesor.email = %s',(email,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos AQUI2")
+		print(error)
+	else:
+		passwordProfesor = cur.fetchone()
+	cur.close()
+	return passwordProfesor
+
+def get_datos_profesor(con, rut):
+	cur = con.cursor()
+	try:
+		cur.execute('SELECT profesor.rut, profesor.nombre, profesor.email, profesor.password FROM profesor WHERE profesor.rut = %s',(rut,))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
 	else:
-		if cur.rowcount==0:
-			success=True
-	
+		nombrepro = cur.fetchone()#[0]
+		#print(nombrepro)
+
 	cur.close()
-	return success
+	return nombrepro
+
+
+def get_nombre_profesor(con, rut):
+
+	cur = con.cursor()
+	nombrepro = ""
+	try:
+	#asignatura_semestre.codigo_asignatura = %s AND asignatura_semestre.codigo_asignatura=asignatura.codigo
+		cur.execute('SELECT profesor.nombre FROM profesor WHERE profesor.rut = %s',(rut,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos")
+		print(error)
+	else:
+		nombrepro = cur.fetchone()[0]
+
+	cur.close()
+	return nombrepro
+
+
+
+####################### END LOGIN ###################################################
 
 def borrar_item(con, numeval, numitem):
 
@@ -414,23 +474,6 @@ def get_nombre_alumno(con, numMatricula):
 
 	cur.close()
 	return nombreal
-
-
-def get_nombre_profesor(con, rut):
-
-	cur = con.cursor()
-	nombrepro = ""
-	try:
-	#asignatura_semestre.codigo_asignatura = %s AND asignatura_semestre.codigo_asignatura=asignatura.codigo
-		cur.execute('SELECT profesor.nombre FROM profesor WHERE profesor.rut = %s',(rut,))
-	except(Exception,psycopg2.DatabaseError) as error:
-		print("Fallo al comunicarse con la base de datos")
-		print(error)
-	else:
-		nombrepro = cur.fetchone()[0]
-
-	cur.close()
-	return nombrepro
 
 
 def borrar_evaluacion(con, codigo, año, semestre, numeval):

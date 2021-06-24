@@ -10,8 +10,12 @@
 
 .card{
 	padding-left: 300px;
+    box-shadow: none;
 }
 
+.card:hover{
+    box-shadow: none;
+}
 
 a{
     text-decoration: none;
