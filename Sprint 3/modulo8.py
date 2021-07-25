@@ -199,6 +199,20 @@ def get_puntajesObtenidos(con,alumno,evaluacion):
 	cur.close()
 	return lista
 
+def get_resultadosEvaluacion(con,evaluacion):
+	cur = con.cursor()
+	lista = []
+	try:		
+		cur.execute('SELECT puntaje_alumno.id_alumno, puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,posee_item WHERE posee_item.id_evaluacion = %s ',(evaluacion))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos")
+		print(error)
+	else:
+		for row in cur:
+			lista.append({"id_alumno":row[0],"id_item":row[1],"puntaje_obtenido":row[2]})
+	cur.close()
+	return lista
+
 def nueva_Evaluacion(con,codigo_asignatura,semestre,año,puntaje_max):
 
 	cur=con.cursor()
