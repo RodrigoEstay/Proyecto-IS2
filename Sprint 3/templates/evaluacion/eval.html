@@ -1,0 +1,18 @@
+{% extends 'listas_base.html' %}
+{% block header %}
+	{% block title %}{{ asignatura["name"] }}{% endblock %}
+{% endblock %}
+
+{% block list %}
+	{% for ev in evaluaciones %}
+		<div class="card evaluacion">
+			<article class="list_element">
+				<h1>Evaluacion {{ loop.index }}</h1>
+				{% set index = loop.index %}
+				<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=ev['id_evaluacion']) }}?evalIndex={{loop.index}}">Ingresar Puntaje</a>
+				<!--<a class="action" id="evalModificar">Modificar</a> -->
+				<a class="action" href="{{ url_for('evaluacion.detallesEval', asignaturaID=asignatura['ID'], evalID=ev['id_evaluacion']) }}?evalIndex={{loop.index}}" id="evalDetalles">Ver detalles</a>
+			</article>
+		</div>
+	{% endfor %}
+{% endblock %}

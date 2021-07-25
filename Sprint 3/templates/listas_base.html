@@ -1,0 +1,19 @@
+
+{% extends 'encabezado.html' %}
+{% block headerEnc %}{% block titleEnc %}{% block header %}{% block title %}{% endblock %}{% endblock %}{% endblock %}{% endblock %}
+{% block subtitle %}{% block subHeader %}{% endblock %}{% endblock %}
+
+{% block content %}
+
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+</head>
+
+<section class="list">
+	{% block list %}{% endblock %}
+</section>
+
+{% endblock %}
+

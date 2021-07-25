@@ -1,0 +1,46 @@
+
+{% extends 'encabezado.html' %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura.nombre}}{% endblock %}{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+  		<meta charset="utf-8">
+  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/infAsignatura.css') }}">
+  	</head>
+  	<body>    	
+    	<div class = "row">
+    		<div class = "sidebar" id="asignatura-sidebar">
+          <p id="res-title">Evaluaciones</p>
+          <div id="opciones">
+            <a href="{{url_for('addEval', codigoAsignatura=asignatura.codigo)}}" class = "boton" id="eval-btn">Crear evaluación</a>
+            <a href="{{url_for('evaluacion.evaluation', asignaturaID=asignatura.codigo)}}" class = "boton" id="eval-btn">Ver evaluación</a>
+          </div>
+          <p id="res-title"> Resultados de Aprendizaje</p>
+    			{% for ra in RAs %}
+            <p id="res-nombre">{{ra.nombre}}</p>
+          {% endfor %}
+    		</div>
+    		<div class = "content">
+    			<div class="wrapper">
+    			{% for alumno in alumnos %}
+            <div class="card">
+              <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" style="width:33%">
+              <div class="container">
+                <h4><b>{{alumno.nombre}}</b></h4> 
+                <p>Matrícula: {{alumno.num_matricula}}</p> 
+              </div>
+            </div>
+    				
+    			{% endfor %}
+    		</div>
+    		
+		</div>
+    	</div>
+    	
+  	</body>
+</html>
+
+{% endblock %}

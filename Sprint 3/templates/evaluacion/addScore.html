@@ -1,0 +1,52 @@
+{% extends 'listas_base.html' %}
+{% block header %}
+	{% block title %}{{ asignatura }}{% endblock %}
+{% endblock %}
+{% block subHeader %}
+	Evaluación {{ evalIndex }}
+{% endblock %}
+
+{% block list %}
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/addScore.css') }}">
+	</head>
+	{% if items %}
+		<form method='POST'>
+			<div class="row" id="row-container">
+			
+				<div class="items">
+					{% for item in items %}
+					<div class="card items">
+						<article class="list_element">
+							<h1>Item {{ loop.index }}</h1>
+							<label for="score">Puntaje: </label>
+							<input type="number" min="0" max="{{ item['puntaje_maximo'] }}" name="scores[]" id="score" required>
+							<input type="hidden" name="itemsID[]" id="itemID" value= "{{ item['id_item'] }}">
+							<score>/{{ item['puntaje_maximo'] }}</score>
+						</article>
+					</div>
+					{% endfor %}
+				</div>
+				<div id="lista-container">
+					<h2>Alumnos</h2>
+					<div class="lista_clase">
+						{% for alumn in alumnos %}
+							<input type="radio" id="{{ alumn['nombre'] }}" name=alumno value="{{ alumn['num_matricula'] }}" required>
+							<label for="{{ alumn['nombre'] }}">{{ alumn['nombre'] }} </label>
+							{% if not loop.last %}
+								<br>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+			<input class='boton submitItems' type='submit' value='Guardar puntaje'>
+
+		</form>
+	{% else %}
+		<div>
+			<h1>NO HAY ITEMS</h1>
+		</div>
+	{% endif %}
+{% endblock %}

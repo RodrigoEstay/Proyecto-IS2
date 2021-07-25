@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename= 'css/encabezado.css') }}">
+</head>
+
+<title>{% block headerEnc %}{% endblock %}</title>
+
+<div class="encabezado">
+
+	<div id="up">
+		<div id="left">
+			<button class="boton atras" onclick="history.back(-1)"><i class="fa fa-arrow-left"></i></button>
+		</div>
+		<div id="title">
+			{% block titleEnc %}{% endblock %}
+		</div><div id="subtitle">
+			{% block subtitle %}{% endblock %}
+		</div>
+		<div id="right">
+			<span class="name"><h4>{{ current_user.name }}</h4></span>
+			<img src="http://vu2004.admin.hosting8.ing.udec.cl/upload/paginas/archivos/04-10-2016-13-41-41_img_8787-gonzalo-rojas.jpg" style="height: 70px;">
+			<div id="down">
+				<div id="links">
+					<a href="{{url_for('logout')}}">Cerrar sesión</a> | <a href="{{url_for('asignaturas')}}">Ir al inicio</a>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</div>
+
+{% block content %}{% endblock %}

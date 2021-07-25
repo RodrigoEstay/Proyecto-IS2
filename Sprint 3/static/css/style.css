@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+
+a{
+	text-decoration: none;
+	color: DarkCyan;
+	padding: 10px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+.logout{
+	position: fixed;
+	bottom: 10px;
+}
+h5{
+	color: gray;
+}
+.elementoItem{
+	margin: 30px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  	transition: 0.3s;
+  	padding: 15px;
+}
+.elementoItem:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.itemHeader{
+	background-color: slategray;
+	background-size: 100% auto;
+	font-weight: bold;
+	color: white;
+	border-radius: 8px;
+	font-size-adjust: 0.80;
+	margin-bottom: 2%;
+	display: table;
+    width: 100%;
+    table-layout: fixed;
+	/*display:flex;*/
+}
+.item-titulo{
+	width:150px;
+	height:50px;
+	display: table-cell;
+	width: 75%;
+	margin: auto;
+	text-align:left;
+	padding-left: 3%;
+	padding-right: 10%;
+	padding-bottom: 1%;
+	padding-top: 1%;
+	
+}
+.puntItemContainer{
+	display: table-cell;
+	text-align: right;
+	width: 25%;
+}
+.puntItem{
+	margin-right: 10%;
+}
+.enunciado{
+	height:300px;
+	margin: 5px;
+	border-color: slategray;
+	border-radius: 8px;
+}
+.enunciado2{
+	height:300px;
+	margin: 10px 0 10px 10%;
+	float:center;
+	width:50%;
+}
+.comentario{
+	height:150px;
+	width: 50%;
+	float:right;
+	margin: 5px;
+	border-color: slategray;
+	border-radius: 8px;
+}
+.comentario2{
+	height:60px;
+	width: 50%;
+	float:left;
+	margin: 5px;
+}
+
+.item-data{
+	display:flex;
+	flex-direction: column;
+	float: left;
+	width: 60%;
+	margin: 0 5%;
+}
+.item-data2{
+	
+	float: left;
+	width: 50%;
+	
+}
+
+.RA-check{
+	width:20%;
+	float: left;
+	height:350px;
+	display:flex;
+	overflow: auto;
+	flex-direction: column;
+	border: 2px solid slategray;
+	border-radius: 8px;
+}
+.RA-check2{
+	width:50%;
+	float: center;
+	height:350px;
+	display:flex;
+	overflow: auto;
+	flex-direction: column;
+	margin: 10px 0 10px 10%;
+}
+.RA-item{
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+.RA-item{
+	width:30%;
+	float: left;
+	overflow: auto;
+}
+.wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 30px;
+	
+	margin: 0 10% 0 10%;
+	
+}
+
+.alumno{
+	background: orange;
+	border:1px solid black;
+	font-size: 20px;
+}
+
+.sidebar{
+	border:2px solid black;
+	width: 20%;
+	float :left;
+	overflow: auto;
+}
+
+.detalles{
+	float: left;
+	width: 70%;
+}
+
+.opciones{
+	float: left;
+	width: 20%;
+	text-align: right;
+
+}
+
+.row:after {
+  	content: "";
+  	display: table;
+  	clear: both;
+  	height: fit-content;
+}
+
+.content{
+	width: 75%;
+	float: left;
+	height: auto;
+}
+
+.contAsign{
+	width:100%;
+	height: auto
+	padding: 10px;
+}
+
+.card {
+  display: flex;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+}
+.card.ramo{
+	flex-direction: column;
+	height: 300px;
+	width: 60%;
+}
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+  width: 100%;
+}
+
+
+
+
+
+
+
+.items{
+	float: left;
+	width: 40%;
+	font-size: 20px;
+	
+}
+
+.card.items{
+	margin: 0px 1.5em 0em 10em;
+	width: 60%;
+}
+
+.lista_clase {
+	height:300px; 
+	width: 200px;
+	overflow:auto;
+	float: left;
+	font-size: 20px;
+	padding: 20px;
+	border:2px solid black;
+	margin: 10px;
+}
+
+.card.evaluacion {
+	flex-direction: column;
+	width: 60%;
+	margin: 20px 20%;
+}
+
+
+.boton{
+	background-color: #008CBA;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+	transition-duration: 0.4s;
+}
+
+.boton.submitItems{
+	margin: 1.5em 1.5em 0em 20%;
+	padding: 15px 32px;
+}
+
+.boton:hover {
+	background-color: #4CAF50;
+	box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	color: white;
+}
+
+.boton:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+  transition: 0.1s
+}
+
+
+
+.boton.addItem{
+	float:right;
+	margin:10px;
+}
+
+.itemInfo{
+	margin-top: 10px;
+}
+
+
+.detallesContainer{
+	display: table;
+	width: 100%;
+	height: auto;
+}
+.detallesContainer #evalInfoDetalles{
+	display: table-cell;
+	width: 30%;
+	padding-left: 10%;
+}
+.detallesContainer #itemsInfoDetalles{
+	display: table-cell;
+	width: 70%;
+}
+
+
+
+.card.itemsDetalles{
+	width: 60%;
+	margin-top: 20px;
+	margin: left;
+	display: block;
+}
+
+.itemInfoHeader{
+	background-color: slategray;
+	background-size: 100% auto;
+	font-weight: bold;
+	color: white;
+	border-radius: 8px;
+	font-size-adjust: 0.80;
+	margin-bottom: 2%;
+	display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.itemInfoHeader div{
+	display: table-cell;
+	padding-left: 3%;
+	padding-right: 10%;
+	padding-bottom: 2%;
+	padding-top: 2%;
+}
+
+.itemInfoHeader #left{
+	text-align: left;
+}
+
+.itemInfoHeader #right{
+	text-align: right;
+}
+
+.itemInfoEnunciado{
+	font-size-adjust: 0.55;
+	display: table;
+	width:100%;
+}
+
+.itemInfoEnunciado div{
+	padding-left: 3%;
+	padding-right: 10%;
+	display: table-cell;
+	width: 20%;
+}
+
+.itemInfoEnunciado #enunciado{
+	padding: 10px;
+	background-color: rgb(235,235,235);
+	background-size: 100% auto;
+	border-radius: 8px;
+	width:80%;
+}
+
+.itemInfoRA{
+	display: table;
+	width: 100%;
+}
+
+.itemInfoRA div{
+	display: table-cell;
+	width: 50%;
+	text-align: center;
+}

@@ -1,0 +1,29 @@
+
+#row-container{
+	width: 100%;
+	display: table;
+	box-sizing: border-box;
+	margin: 0;
+}
+.items{
+	display: table-cell;
+	width: 60%;
+	box-sizing: border-box;
+	margin: 0;
+}
+#lista-container{
+	display: table-cell;
+	vertical-align: top;
+	width :40%;
+	box-sizing: border-box;
+	margin: 0;
+
+}
+.lista_clase{
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	border: none;
+	background-color: rgb(235,235,235);
+}

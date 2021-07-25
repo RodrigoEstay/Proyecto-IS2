@@ -1,0 +1,21 @@
+
+#asignatura-sidebar{
+	border: none;
+	overflow-x: hidden;
+}
+#res-title{
+	font-weight: bold;
+	font-size: 1.2em;
+}
+#res-nombre{
+	text-align: left;
+	margin-left: 4%;
+	color: slategray;
+}
+#eval-btn{
+	width: 70%;
+	background-color: white ;
+	color: slategray;
+	text-align: left;
+	padding-left: 4%;
+}

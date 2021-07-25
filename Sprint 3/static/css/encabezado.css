@@ -1,0 +1,93 @@
+.boton{
+	background-color: #008CBA;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+	transition-duration: 0.4s;
+	flex-direction: column;
+}
+
+.boton:hover {
+	background-color: #4CAF50;
+	box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	color: white;
+}
+
+.boton:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+  transition: 0.1s
+}
+
+.boton.atras{
+	padding: 10px 15px;
+}
+
+.encabezado{
+	display: block;
+	background-color: rgb(235,235,235);
+	width: 100%;
+	margin: 0 0 10px 0;
+}
+
+.encabezado #up{
+	padding: 0 1% 0 2%;
+	display: table;
+	width: 97%;
+}
+.encabezado #up #left{
+	padding: 0.4% 0 0 0;
+	display: table-cell;
+	vertical-align: middle;
+	width: auto;
+}
+.encabezado #up #right{
+	padding: 0.4% 0 0 0;
+	width: 50%;
+	text-align: right;
+	display: table-cell;
+}
+
+.encabezado #up #right img{
+	vertical-align: middle;
+	border-radius: 30px;
+}
+
+.encabezado #down{
+	display: block;
+	padding: 0 1% 1% 7%;
+}
+
+.encabezado #title{
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 1.5em;
+	width: auto;
+	padding-left: 0%;
+	margin-left: 0%;
+}
+
+.encabezado #subtitle{
+	display: table-cell;
+	width: auto;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 1.5em;
+}
+
+.name{
+	padding-right: 15px;
+	display: inline-block;
+	flex-direction: column;
+}
+
+.encabezado #links{
+	text-align: right;
+	margin-top: 2%;
+}

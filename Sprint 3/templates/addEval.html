@@ -1,0 +1,103 @@
+
+{% extends 'encabezado.html' %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura.nombre}}{% endblock %}{% endblock %}
+{% block subtitle %}Evaluación {{nEval}}{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+  		<meta charset="utf-8">
+  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+  		<script type="text/javascript" src="{{url_for('static', filename='js/func.js') }}"></script>
+    	<title>{{asignatura.nombre}}</title>
+  	</head>
+  	<body>
+  		<div class = "row">
+  			<div class = "detalles">
+  				
+  				<h1></h1>
+  				<h3>Evaluación {{nEval}}</h3>
+  				
+  			</div>
+  		</div>
+    	
+    	<form id="items-eval" method = "post">
+    		<input type="hidden" name="numItems" id = "numItems" value = "1">
+    		<div id = "lista-items">
+    			<div class ="elementoItem">
+    				<div class = "itemHeader">
+    					<div class = "item-titulo">
+    						<h2>Item 1</h2>
+    					</div>
+    				<div class="puntItemContainer">
+    					<input class = "puntItem" type="number" min="0" name="puntaje1" placeholder = "Ingrese puntaje máximo" required>
+    				</div>
+    				</div>
+    				<div class = "row">
+    					<div class = "RA-check">
+    						{% for ra in RAs %}
+    							<div class="RA-item">
+    								<input type="checkbox" id="RA-1-{{loop.index}}" name="RA-1[]" value="{{ra.id_resultado}}">
+    								<label for="RA-1-{{loop.index}}">{{ra.nombre}}</label>
+    								
+    							</div>
+    							
+    						{% endfor %}
+    					</div>
+    					<div class = "item-data">
+    						<textarea class = "enunciado" id="EN-1" name="EN-1" form = "items-eval" placeholder = "Ingrese enunciado..."></textarea>
+    						<textarea class = "comentario" id="COM-1" name="COM-1" form = "items-eval" placeholder = "Añada un comentario..."></textarea>  
+    					</div>
+    				</div>
+    			</div>
+    			
+    		</div>
+    		<div class = "row">
+    			<button type="button" onclick="agregarItem()" class = "boton addItem">Agregar item</button>	
+    		</div>
+    		
+    		<div class = "row">
+    			<a href="{{url_for('infAsignatura', codigoAsignatura=asignatura.codigo)}}">
+    				<button type="button" class = "boton addItem">Cancelar</button>
+    			</a>
+    			<input type="submit" value="Guardar" class = "boton addItem">
+    			
+    		</div>
+    		
+    	</form>
+    	
+		<template id = "item">
+    		<div class ="elementoItem">
+    				<div class = "itemHeader">
+    					<div class = "item-titulo">
+    						<h2>Item {NITEM}</h2>
+    					</div>
+    				<div class="puntItemContainer">
+    					<input class = "puntItem" type="number" min="0" name="puntaje1" placeholder = "Ingrese puntaje máximo" required>
+    				</div>
+    				</div>
+    				<div class = "row">
+    					<div class = "RA-check">
+    						{% for ra in RAs %}
+    							<div class="RA-item">
+    								<input type="checkbox" id="RA-1-{{loop.index}}" name="RA-1[]" value="{{ra.id_resultado}}">
+    								<label for="RA-1-{{loop.index}}">{{ra.nombre}}</label>
+    								
+    							</div>
+    							
+    						{% endfor %}
+    					</div>
+    					<div class = "item-data">
+    						<textarea class = "enunciado" id="EN-1" name="EN-1" form = "items-eval" placeholder = "Ingrese enunciado..."></textarea>
+    						<textarea class = "comentario" id="COM-1" name="COM-1" form = "items-eval" placeholder = "Añada un comentario..."></textarea>  
+    					</div>
+    				</div>
+    			</div>
+    	</template>
+    	
+  	</body>
+</html>
+
+{% endblock %}
