@@ -295,13 +295,13 @@ h5{
 }
 .detallesContainer #itemsInfoDetalles{
 	display: table-cell;
-	width: 70%;
+	width: 100%;
 }
 
 
 
 .card.itemsDetalles{
-	width: 60%;
+	width: 100%;
 	margin-top: 20px;
 	margin: left;
 	display: block;

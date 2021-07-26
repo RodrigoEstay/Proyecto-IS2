@@ -8,3 +8,25 @@ th, td {
 	text-align: left;
 	border-bottom: 1px solid #ddd;
 }
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+    width: 70%;
+}
+
+summary {
+    font-weight: bold;
+    font-size: 24px;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+
+details[open] {
+    padding: .5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}

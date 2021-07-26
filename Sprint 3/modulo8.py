@@ -189,7 +189,7 @@ def get_puntajesObtenidos(con,alumno,evaluacion):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,posee_item WHERE posee_item.id_evaluacion = %s AND posee_item.id_item = puntaje_alumno.id_item AND puntaje_alumno.id_alumno = %s ',(evaluacion,alumno))
+		cur.execute('SELECT puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,item WHERE item.numero_eval = %s AND item.numero = puntaje_alumno.id_item AND puntaje_alumno.id_alumno = %s ',(evaluacion,alumno))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
@@ -203,7 +203,7 @@ def get_resultadosEvaluacion(con,evaluacion):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT puntaje_alumno.id_alumno, puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,posee_item WHERE posee_item.id_evaluacion = %s ',(evaluacion))
+		cur.execute('SELECT puntaje_alumno.id_alumno, puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,item WHERE item.numero_eval = %s ',(evaluacion))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
