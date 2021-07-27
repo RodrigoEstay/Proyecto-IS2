@@ -63,8 +63,35 @@ def detallesEval(asignaturaID, evalID):
 		#RAEval = bd.get_ResultadosAsignatura(con, asignaturaID)
 		comentario = None
 
-		return render_template('evaluacion/detalles.html', asignatura=asignatura, evaluacion=evaluacion, items=items,
-			RAItems=RAItems, RAEval=RAEval) 
+		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con, asignaturaID, semester, year)
+		resultados = bd.get_resultadosEvaluacion(con,evalID)
+
+		#agrego el campo de tiene o no tiene puntaje
+		existe = False
+		for alumno in alumnos:
+
+			contador = 1
+
+			for item in items:
+
+				existe = False
+				for resultado in resultados:
+
+					matricula = resultado.get('id_alumno', 'Noexiste')
+					if(matricula == alumno["num_matricula"] and item["id_item"] == resultado["id_item"]):
+						existe = True
+
+				if(existe):
+					#tiene.append({"num_matricula":alumno["num_matricula"],"tiene":True})
+					alumno[contador] = True
+				else:
+					#tiene.append({"num_matricula":alumno["num_matricula"],"tiene":False})
+					alumno[contador] = False
+
+				contador += 1	
+
+
+		return render_template('evaluacion/detalles.html', asignatura=asignatura, evaluacion=evaluacion, items=items,RAItems=RAItems, RAEval=RAEval, alumnos=alumnos, resultados=resultados) 
 	
 	else:
 		return redirect('/')
