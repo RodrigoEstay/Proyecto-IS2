@@ -606,3 +606,23 @@ def profesor_no_imparte(con, rut, codigo, semestre, año):
 
 	cur.close()
 	
+
+	
+
+def get_dondeImparteRA(con, RAID):
+
+	cur = con.cursor
+	lista = []
+
+	try:
+		cur.execute('SELECT I.numero_eval, I.numero, I.puntaje_max, B.puntaje FROM item as I RIGHT JOIN(SELECT id_item, puntaje FROM asignado_a WHERE id_resultado_aprendizaje = %s) B ON I.numero = B.id_item',(RAID,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al consultar datos: ")
+		print(error)
+	else:
+		for row in cur:
+			lista.append({"evalID":row[0], "itemID":row[1], "puntajeMax": row[2], "ponderacion": row[3]})
+
+	cur.close()
+
+	return lista
