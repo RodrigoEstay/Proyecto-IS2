@@ -79,4 +79,53 @@
 		</div>
 	{% endif %}
 	</details>
+
+	<!-- Lista Alumnos -->
+	<div class="listaAlumnos">
+		
+		<!-- {{resultados}} -->
+		<ul>
+
+		{% for alumno in alumnos %}
+
+		
+			<li>{{ alumno["nombre"] }}</li>
+
+			<ul>
+
+				{% for item in items %}
+
+					{% set contador = loop.index %}
+
+					{% if alumno[loop.index] %}
+
+						{% for resultado in resultados %}
+
+							{% if resultado["id_alumno"] == alumno["num_matricula"] %}
+
+								{% if resultado["id_item"] == item["id_item"] %}
+
+									<li>item {{contador}}: {{resultado["puntaje_obtenido"]}} </li>
+
+								{% endif %}	
+
+							{% endif %}
+
+						{% endfor %}
+
+					{% else %}
+
+						<li>item {{contador}}: No tiene</li>
+
+					{% endif %}
+
+				{% endfor %}	
+				 
+			</ul>		
+
+		{% endfor %}
+
+		</ul>
+
+	</div>
 {% endblock %}

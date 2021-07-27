@@ -203,7 +203,7 @@ def get_resultadosEvaluacion(con,evaluacion):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT puntaje_alumno.id_alumno, puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,item WHERE item.numero_eval = %s ',(evaluacion))
+		cur.execute('SELECT J.id_alumno, J.id_item, J.puntaje_obtenido FROM (SELECT * FROM puntaje_alumno as P right join item I on P.id_item = I.numero) as J WHERE J.numero_eval = %s',(evaluacion, ))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
@@ -606,3 +606,23 @@ def profesor_no_imparte(con, rut, codigo, semestre, año):
 
 	cur.close()
 	
+
+	
+
+def get_dondeImparteRA(con, RAID):
+
+	cur = con.cursor
+	lista = []
+
+	try:
+		cur.execute('SELECT I.numero_eval, I.numero, I.puntaje_max, B.puntaje FROM item as I RIGHT JOIN(SELECT id_item, puntaje FROM asignado_a WHERE id_resultado_aprendizaje = %s) B ON I.numero = B.id_item',(RAID,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al consultar datos: ")
+		print(error)
+	else:
+		for row in cur:
+			lista.append({"evalID":row[0], "itemID":row[1], "puntajeMax": row[2], "ponderacion": row[3]})
+
+	cur.close()
+
+	return lista
