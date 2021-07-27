@@ -18,6 +18,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
 app.register_blueprint(evaluacion.bp)
+app.register_blueprint(RAInfo.bp)
 
 semester = 1
 year = 2021

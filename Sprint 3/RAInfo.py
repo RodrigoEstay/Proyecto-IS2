@@ -7,14 +7,14 @@ from flask import (
 )
 
 
-bp = Blueprint('evaluacion', __name__)
+bp = Blueprint('RAInfo', __name__)
 
 semester = 1
 year = 2021
 
-from main import con
+#from main import con
+con = bd.connect()
 
-def get_puntajes(puntajes, )
 
 @bp.route("/asignatura/<asignaturaID>/RA/<RAID>")
 @login_required
@@ -64,6 +64,6 @@ def RAInfo(codigoAsignatura, RAID):
 		print(items, general, alumnos)
 
 		return render_template('infoRA.html',items = items, general = general, RA = "PRUEBA PRUEBA LOREM IPSUM")
-		
+
 	else:
 		return redirect('/')
