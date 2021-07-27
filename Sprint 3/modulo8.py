@@ -203,7 +203,7 @@ def get_resultadosEvaluacion(con,evaluacion):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT puntaje_alumno.id_alumno, puntaje_alumno.id_item, puntaje_alumno.puntaje_obtenido FROM puntaje_alumno,item WHERE item.numero_eval = %s ',(evaluacion))
+		cur.execute('SELECT J.id_alumno, J.id_item, J.puntaje_obtenido FROM (SELECT * FROM puntaje_alumno as P right join item I on P.id_item = I.numero) as J WHERE J.numero_eval = %s',(evaluacion, ))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
