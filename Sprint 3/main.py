@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from login import LoginForm
 
 import evaluacion
+import RAInfo
 import modulo8 as bd
 import ast
 
