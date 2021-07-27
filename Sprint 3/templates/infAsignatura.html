@@ -9,6 +9,7 @@
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename= 'css/infAsignatura.css') }}">
+      <script type="text/javascript" src="{{url_for('static', filename='js/infoAsignatura.js') }}"></script>
   	</head>
   	<body>    	
     	<div class = "row">
@@ -23,19 +24,35 @@
             <p id="res-nombre">{{ra.nombre}}</p>
           {% endfor %}
     		</div>
+
     		<div class = "content">
     			<div class="wrapper">
     			{% for alumno in alumnos %}
-            <div class="card">
+            <div id="myModal-{{loop.index}}" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+
+                <span class="close" id = "close-{{loop.index}}">&times;</span>
+                <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" class = "centerIMG">
+                <div class = "a">
+                  <h4><b>{{alumno.nombre}}</b></h4> 
+                </div>
+                
+              </div>
+
+            </div>
+            <div class="card" id = "alumno-{{loop.index}}">
               <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" style="width:33%">
               <div class="container">
                 <h4><b>{{alumno.nombre}}</b></h4> 
                 <p>Matrícula: {{alumno.num_matricula}}</p> 
               </div>
             </div>
-    				
+    				<script type="text/javascript">setModal("{{loop.index}}")</script>
     			{% endfor %}
     		</div>
+        
     		
 		</div>
     	</div>

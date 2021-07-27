@@ -70,25 +70,31 @@ def addEval(codigoAsignatura=None):
 			puntajes = []
 			cantItems = int(request.form.get("numItems"))
 			ptotal = 0
-			resultados = []
+			#resultados = []
 			enunciados = []
-			comentarios = []
+			#comentarios = []
+			rees = [] #[id,comentario,ponderacion]
+			nRes = request.form.getlist("numRA");
 			for i in range(1, cantItems+1):
 				puntajes.append(int(request.form.get("puntaje"+str(i))))
 				ptotal += puntajes[-1]
-				resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
-				comentarios.append((request.form.getlist("COM-"+str(i)+"[]")))
+				#resultados.append(request.form.getlist("RA-"+str(i)+"[]"))
+				#comentarios.append((request.form.getlist("COM-"+str(i)+"[]")))
 				enunciados.append((request.form.get("EN-"+str(i))))
-			print(comentarios)
-			print(resultados)
+				aux = []
+				for j in range(0,int(nRes[i-1])):
+					aux.append(request.form.getlist("RES-"+str(i)+"-"+str(j+1)))
+				rees.append(aux)
+				print(aux)
+			
 			idEval = bd.nueva_Evaluacion(con, codigoAsignatura, semester, year, ptotal)
 			for i in range(1, cantItems+1):
 				idItem = bd.nuevo_Item(con, idEval, puntajes[i-1], enunciados[i-1])
-				for res in resultados[i-1]:
+				for res in rees[i-1]:
 					res = ast.literal_eval(res)
-					print(res)
+					#print(res)
 					bd.asociar_ResultadoItem(
-					    con, idItem, res[0], comentarios[i-1][int(res[1])-1], 1)
+					    con, idItem, res[0], res[1], res[2])
 
 			return redirect(url_for('evaluacion.evaluation', asignaturaID=codigoAsignatura))
 

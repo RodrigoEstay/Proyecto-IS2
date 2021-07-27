@@ -10,7 +10,9 @@
 	<head>
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/nuevaEval.css') }}">
   		<script type="text/javascript" src="{{url_for('static', filename='js/func.js') }}"></script>
+      <script type="text/javascript" src="{{url_for('static', filename='js/agregarRA.js') }}"></script>
     	<title>{{asignatura.nombre}}</title>
   	</head>
   	<body>
@@ -27,6 +29,7 @@
     		<input type="hidden" name="numItems" id = "numItems" value = "1">
     		<div id = "lista-items">
     			<div class ="elementoItem">
+            <input type="hidden" name="numRA" id = "numRA-1" value = "0">
     				<div class = "itemHeader">
     					<div class = "item-titulo">
     						<h2>Item 1</h2>
@@ -39,7 +42,8 @@
               <textarea class = "enunciado enunciado2" id="EN-1" name="EN-1" form = "items-eval" placeholder = "Ingrese enunciado..."></textarea>
             </div>
             <div class = "row">
-              <div class = "RA-check2">
+              <div id = "lista-RA-1" class = "RA-check2">
+                <!--
                 {% for ra in RAs %}
                   <div class = "row" style = "margin: 20px;">
                     <div class = "RA-item">
@@ -54,10 +58,13 @@
                   </div>
                     
                 {% endfor %}
+                -->
               </div>
             </div>
     					   					
-    				
+    				<div class = "row">
+              <button type="button" onclick="agregarRA(1)" class = "boton addItem">Agregar RA</button> 
+            </div>
     			</div>
     			
     		</div>
@@ -75,8 +82,9 @@
     		
     	</form>
     	
-		<template id = "item">
+		  <template id = "item">
         <div class ="elementoItem">
+            <input type="hidden" name="numRA" id = "numRA-{NITEM}" value = "0">
             <div class = "itemHeader">
               <div class = "item-titulo">
                 <h2>Item {NITEM}</h2>
@@ -89,7 +97,8 @@
               <textarea class = "enunciado enunciado2" id="EN-{NITEM}" name="EN-{NITEM}" form = "items-eval" placeholder = "Ingrese enunciado..."></textarea>
             </div>
             <div class = "row">
-              <div class = "RA-check2">
+              <div id = "lista-RA-{NITEM}" class = "RA-check2">
+                <!--
                 {% for ra in RAs %}
                   <div class = "row" style = "margin: 20px;">
                     <div class = "RA-item">
@@ -104,13 +113,30 @@
                   </div>
                     
                 {% endfor %}
+              -->
               </div>
             </div>
-                          
+            <div class = "row">
+              <button type="button" onclick="agregarRA({NITEM})" class = "boton addItem">Agregar RA</button> 
+            </div>            
             
         </div>
     		
-    	</template>
+      </template>
+      <template id = "RA">
+        <div class = "row">
+          <select name="RES-{NITEM}-{NRES}" id="DROP-{NITEM}-{NRES}">
+            <option value="null">Seleccione un Resultado de Aprendizaje</option>
+            {% for ra in RAs %}
+              <option value="{{ra.id_resultado}}">{{ra.nombre}}</option>
+            
+            {% endfor %}
+          </select>
+          <textarea class = "comentario2" style = "resize: none" id="COM-{NITEM}-{NRES}" name="RES-{NITEM}-{NRES}" form = "items-eval" placeholder = "Añada un comentario..."></textarea>  
+          <input type="number" min=0 max=100 name="RES-{NITEM}-{NRES}" id="pond-{NITEM}-{NRES}" placeholder="Ingrese ponderación" required>
+
+        </div>
+      </template>
     	
   	</body>
 </html>
