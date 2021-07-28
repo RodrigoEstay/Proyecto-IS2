@@ -9,12 +9,21 @@
 {% block list %}
 	<head>
 		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/addScore.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
+
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	</body>
 	{% if items %}
 		<form method='POST'>
 			<div class="row" id="row-container">
-			
+					
 				<div class="items">
+					<div id = "alumno_actual">
+						<img src="{{url_for('static',filename='images/sergio.jpg')}}" style="height: 80px; border-radius: 20px;">
+						<span id="nombreAl"><h4>{{ al['nombre'] }}</h4></span>
+					</div>
 					{% for item in items %}
 					<div class="card items">
 						<article class="list_element">
@@ -26,21 +35,42 @@
 						</article>
 					</div>
 					{% endfor %}
+				
 				</div>
+							
+					
 				<div id="lista-container">
 					<h2>Alumnos</h2>
+					<h3>
+						<i class="fas fa-search"></i>
+						<input type="list" list = "alumnos">
+						<datalist id = "alumnos">
+							{% for alumn in alumnos %}
+								<option value="{{ alumn['nombre'] }}">{{ alumn['nombre'] }} </option>
+							{% endfor %}
+						</datalist>
+						<input type="submit" value="Buscar">
+					</h3>
+
 					<div class="lista_clase">
 						{% for alumn in alumnos %}
-							<input type="radio" id="{{ alumn['nombre'] }}" name=alumno value="{{ alumn['num_matricula'] }}" required>
-							<label for="{{ alumn['nombre'] }}">{{ alumn['nombre'] }} </label>
-							{% if not loop.last %}
-								<br>
-							{% endif %}
+							<div id="lista_alumnos">
+								<input type = "hidden" name=alumno value = {{al['num_matricula']}}>
+								{% if alumn['evaluado'] %}
+									<a id="Eval" for="{{ alumn['nombre'] }}"> {{ alumn['nombre'] }} 
+									</a><i class="far fa-check-circle" id="icono"></i>
+
+								{% else %}
+									<a id= "noEval" for="{{ alumn['nombre'] }}" href="{{url_for('evaluacion.addScore', asignaturaID=asignatura_ID, evalID = eval_ID, num_alumn = loop.index)}}?evalIndex={{eval_Index}}">{{ alumn['nombre'] }} </a>
+								{% endif %}
+
+							</div>
+							
 						{% endfor %}
 					</div>
 				</div>
 			</div>
-
+			
 			<input class='boton submitItems' type='submit' value='Guardar puntaje'>
 
 		</form>

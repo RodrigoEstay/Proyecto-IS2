@@ -120,9 +120,9 @@ def modificarEval(asignaturaID, evalID):
 
 	pass 
 
-@bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/addScore", methods=['GET', 'POST'])
+@bp.route("/asignatura/<asignaturaID>/eval/<int:evalID>/<int:num_alumn>/addScore", methods=['GET', 'POST'])
 @login_required
-def addScore(asignaturaID, evalID):
+def addScore(asignaturaID, evalID, num_alumn):
 
 	idProfesor = current_user.id
 	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
@@ -137,6 +137,9 @@ def addScore(asignaturaID, evalID):
 			for i in range(len(puntajes)):
 				bd.ingresar_Puntaje(con, matAlumno, itemsID[i], puntajes[i])
 
+
+			num_alumn += 1
+
 		evalIndex = request.args.get("evalIndex")
 
 		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,asignaturaID,semester,year)
@@ -146,7 +149,26 @@ def addScore(asignaturaID, evalID):
 		
 		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con, asignaturaID, semester, year)
 
-		return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items)
+		for i in alumnos:
+			flag = True
+			
+			for j in items:
+				puntaje = bd.consultar_puntaje(con, i['num_matricula'], j['id_item'])
+				if puntaje != None:
+					i['evaluado'] = True
+				else:
+					i['evaluado'] = False
+				break
+			#print(i)
+				
+		#print("num_alumn", num_alumn)
+		print(alumnos)
+
+		#print(alumnos[num_alumn-1]['evaluado'])
+		while alumnos[num_alumn-1]['evaluado'] == True:
+			num_alumn += 1
+
+		return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items, al = alumnos[num_alumn-1], eval_ID = evalID, asignatura_ID = asignaturaID, eval_Index = evalIndex)
 
 	else:
 		return redirect('/')
