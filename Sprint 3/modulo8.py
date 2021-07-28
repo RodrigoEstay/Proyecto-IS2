@@ -145,13 +145,13 @@ def get_ResultadosItem(con, item):
 	cur = con.cursor()
 	lista = []
 	try:		
-		cur.execute('SELECT asignado_a.id_resultado_aprendizaje,resultado_aprendizaje.nombre,asignado_a.comentario FROM resultado_aprendizaje,asignado_a WHERE asignado_a.id_item = %s AND resultado_aprendizaje.id_resultado=asignado_a.id_resultado_aprendizaje',(item,))
+		cur.execute('SELECT asignado_a.id_resultado_aprendizaje,resultado_aprendizaje.nombre,asignado_a.comentario, asignado_a.puntaje FROM resultado_aprendizaje,asignado_a WHERE asignado_a.id_item = %s AND resultado_aprendizaje.id_resultado=asignado_a.id_resultado_aprendizaje',(item,))
 	except(Exception,psycopg2.DatabaseError) as error:
 		print("Fallo al comunicarse con la base de datos")
 		print(error)
 	else:
 		for row in cur:
-			lista.append({"id_resultado":row[0],"nombre":row[1],"comentario":row[2]})
+			lista.append({"id_resultado":row[0],"nombre":row[1],"comentario":row[2],"ponderacion":row[3]})
 	cur.close()
 	return lista
 
