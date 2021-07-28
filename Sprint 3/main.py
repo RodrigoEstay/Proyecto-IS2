@@ -129,6 +129,22 @@ def asignaturas():
 	return render_template('asignaturas.html',profesor = idProfesor, ramos = ramos, semester = semester, year = year)
 
 
+@app.route('/asignatura/<codigoAsignatura>/alumnos/<idAlumno>')
+@login_required
+def infAlumno(codigoAsignatura = None, idAlumno = None):
+	idProfesor = current_user.id
+	nombreProfesor = current_user.name
+	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
+
+	if codigoAsignatura in asignaturasProfesor:
+		nombreas = bd.get_nombre_asignatura(con,codigoAsignatura)
+		nombreal = bd.get_nombre_alumno(con, idAlumno)
+		alumno = {'num_matricula':idAlumno, 'nombre':nombreal}
+		asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
+		return render_template('detallesAlumno.html',asignatura = asignatura, alumno = alumno)
+	else:
+		return redirect('/')
+
 @app.route('/asignatura/<codigoAsignatura>/')
 @login_required
 def infAsignatura(codigoAsignatura = None):
@@ -180,7 +196,6 @@ def infAsignatura(codigoAsignatura = None):
 					alumno["dataArray"][indiceRA[idr]][1] = alumno["dataArray"][indiceRA[idr]][1] + sumar
 					promAlumnos[idr] = promAlumnos[idr] + sumar 
 		
-		print(base)
 		for idr in promAlumnos:
 			promAlumnos[idr] = promAlumnos[idr]/len(alumnos)
 		for alumno in alumnos:

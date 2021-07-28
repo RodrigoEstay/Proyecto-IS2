@@ -67,8 +67,10 @@
                 </div>
                 -->
                 <div class = "row" >
-                  
-                    <button type="button" onclick="" class = "boton centrado" >Ver más</button> 
+                    <a href="{{url_for('infAlumno', codigoAsignatura=asignatura.codigo,idAlumno = alumno.num_matricula)}}">
+                      <button type="button" onclick="" class = "boton centrado" >Ver más</button> 
+                    </a>
+                    
                  
                 </div>
                 

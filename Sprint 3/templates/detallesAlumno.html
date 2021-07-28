@@ -1,0 +1,23 @@
+{% extends 'encabezado.html' %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura.nombre}}{% endblock %}{% endblock %}
+{% block subtitle %}{{alumno.nombre}}{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+  		<meta charset="utf-8">
+  		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/nuevaEval.css') }}">
+  		<script type="text/javascript" src="{{url_for('static', filename='js/func.js') }}"></script>
+      <script type="text/javascript" src="{{url_for('static', filename='js/agregarRA.js') }}"></script>
+    	<title>{{asignatura.nombre}}</title>
+  	</head>
+  	<body>
+  		
+    	
+  	</body>
+</html>
+
+{% endblock %}
