@@ -1,6 +1,6 @@
 
 {% extends 'encabezado.html' %}
-{% block headerEnc %}{% block titleEnc %}{{asignatura.nombre}}{% endblock %}{% endblock %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura}}{% endblock %}{% endblock %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -14,6 +14,9 @@
       <div class = "row">
 
         <div class = "sidebar" id="RA-sidebar">
+
+          <h1 id="RA-title">Resultado de Aprendizaje</h1>
+          <h2>{{RA}}</h2>
 
           <h2 id="items-title">Donde es evaluado el RA:</h2>
           <div id="itemsRA">

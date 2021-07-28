@@ -626,3 +626,22 @@ def get_dondeImparteRA(con, RAID):
 	cur.close()
 
 	return lista
+
+
+def get_nombreRA(con, RAID):
+
+	cur = con.cursor()
+	nombre = None
+
+	try:
+		cur.execute('SELECT nombre FROM resultado_aprendizaje WHERE id_resultado=%s',(RAID,))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al consultar datos: ")
+		print(error)
+	else:
+		for row in cur:
+			nombre = row[0]
+
+	cur.close()
+
+	return nombre
