@@ -21,7 +21,7 @@
           </div>
           <p id="res-title"> Resultados de Aprendizaje</p>
     			{% for ra in RAs %}
-            <p id="res-nombre">{{ra.nombre}}</p>
+            <p id="res-nombre"><a href="{{url_for('RAInfo.RAInfo',asignaturaID=asignatura.codigo,RAID=ra.id_resultado)}}">{{ra.nombre}}</a></p>
           {% endfor %}
     		</div>
 
