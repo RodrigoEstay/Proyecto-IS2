@@ -12,7 +12,7 @@ details {
     border: 1px solid #aaa;
     border-radius: 4px;
     padding: .5em .5em 0;
-    width: 70%;
+    width: 90%;
 }
 
 summary {
@@ -31,9 +31,48 @@ details[open] summary {
     margin-bottom: .5em;
 }
 
+#listaAlumnos details {
+    border: 3px double #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+    width: 85%;
+}
+
+#listaAlumnos summary {
+    display: grid;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+
+.nombreAlumno{
+    grid-row: 1;
+    float: left;
+    font-weight: bold;
+    font-size: 17px;
+
+}
+
+.puntajeResumen{
+    grid-row: 1;
+    text-align: right;
+    font-weight: lighter;
+    font-size: 15px;
+
+}
+
+#listaAlumnos details[open] {
+    padding: .5em;
+}
+
+#listaAlumnos details[open] summary {
+    border-bottom: 1px none #aaa;
+    margin-bottom: .5em;
+}
+
 ul {
 
-  list-style-type: decimal;
+  list-style-type: circle;
+  
 
 }
 

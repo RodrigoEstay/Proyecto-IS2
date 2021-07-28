@@ -300,6 +300,19 @@ def ingresar_Puntaje(con,alumno,item,puntaje):
 		con.commit()
 	cur.close()
 
+def consultar_puntaje(con, alumno, item):
+	cur = con.cursor()
+	puntaje = None
+	try:
+		cur.execute('SELECT puntaje_alumno.puntaje_obtenido FROM puntaje_alumno WHERE puntaje_alumno.id_alumno = %s AND puntaje_alumno.id_item = %s', (alumno, item))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al consultar datos: ")
+		print(error)
+	else:
+		puntaje = cur.fetchone()
+	cur.close()
+	return puntaje
+	
 ####################### LOGIN ###########################################################
 
 def login(con,email):

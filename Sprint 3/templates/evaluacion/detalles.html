@@ -14,118 +14,138 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/detalles.css') }}">
 	</head>
 
-	{% if items %}
-		<div class="detallesContainer">
-			<div id="evalInfoDetalles">
-				<h2>Evaluación {{ evaluacion["index"] }}</h2>
-				<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=evaluacion['ID']) }}?evalIndex={{evaluacion['index']}}">Ingresar Puntaje</a>
-				<h3>Resultados de Aprendizaje evaluados:</h3>
-				<div class="RAEval">				
-					{% for RA in RAEval %}
-						<p>{{ RA["nombre"] }}</p>
+	<body>
+		{% if items %}
+			<div class="detallesContainer">
+				<div id="evalInfoDetalles">
+					<h2>Evaluación {{ evaluacion["index"] }}</h2>
+					<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=evaluacion['ID'], num_alumn=1) }}?evalIndex={{evaluacion['index']}}">Ingresar Puntaje</a>
+					<h3>Resultados de Aprendizaje evaluados:</h3>
+					<div class="RAEval">				
+						{% for RA in RAEval %}
+							<p><a href="{{url_for('RAInfo.RAInfo',asignaturaID=asignatura['ID'],RAID=RA['id_resultado'])}}">{{RA["nombre"]}}</a></p>
+						{% endfor %}
+					</div>
+				</div>
+				<details>
+					<summary>Items</summary>
+				<div id="itemsInfoDetalles">
+					{% for item in items %}
+						<div class="card itemsDetalles">
+							<div class="itemInfoHeader">
+								<div id="left">Item {{ loop.index }}</div>
+								<div id="right">{{ item['puntaje_maximo'] }} pts.</div>
+							</div>
+							<div class="itemInfoEnunciado">
+								<div>Enunciado:</div>
+								<div id="enunciado">{{ item['enunciado'] }}</div>
+							</div>
+							<table class="itemInfoRA">
+
+								<tr>
+									<th>Resultados de Aprendizaje</th>
+									<th>Comentarios</th>
+								</tr>
+								{% for RA in RAItems[loop.index0] %}
+									<tr>
+										<td><a href="{{url_for('RAInfo.RAInfo',asignaturaID=asignatura['ID'],RAID=RA['id_resultado'])}}">{{RA["nombre"]}}</a></td>
+										<td>{{ RA["comentario"] }}</td>
+									</tr>
+								{% endfor %}
+
+
+								<!--
+								<div>
+									<p>Resultados de aprendizaje:</p>
+									{% for RA in RAItems[loop.index0] %}
+										<p>{{ RA["nombre"] }}</p>
+									{% endfor %}
+								</div>
+								<div>
+									<span>Comentario:</span>
+									{% if RAItems[0] %}
+									<span>{{ RAItems[loop.index0][0]["comentario"] }}</span>
+									{% endif %}
+								</div>
+								-->
+							</table>
+						</div>
 					{% endfor %}
 				</div>
-			</div>
-			<details>
-				<summary>Items</summary>
-			<div id="itemsInfoDetalles">
-				{% for item in items %}
-					<div class="card itemsDetalles">
-						<div class="itemInfoHeader">
-							<div id="left">Item {{ loop.index }}</div>
-							<div id="right">{{ item['puntaje_maximo'] }} pts.</div>
-						</div>
-						<div class="itemInfoEnunciado">
-							<div>Enunciado:</div>
-							<div id="enunciado">{{ item['enunciado'] }}</div>
-						</div>
-						<table class="itemInfoRA">
+				</details>
 
-							<tr>
-								<th>Resultados de Aprendizaje</th>
-								<th>Comentarios</th>
-							</tr>
-							{% for RA in RAItems[loop.index0] %}
-								<tr>
-									<td>{{ RA["nombre"] }}</td>
-									<td>{{ RA["comentario"] }}</td>
-								</tr>
-							{% endfor %}
+				<!-- Lista Alumnos -->
+				<div id="listaAlumnos">
+					<details>
+					<!-- {{resultados}} -->
+						<summary>
 
-
-							<!--
-							<div>
-								<p>Resultados de aprendizaje:</p>
-								{% for RA in RAItems[loop.index0] %}
-									<p>{{ RA["nombre"] }}</p>
-								{% endfor %}
+							<div class="tituloLista">
+								Lista de Alumnos
 							</div>
-							<div>
-								<span>Comentario:</span>
-								{% if RAItems[0] %}
-								<span>{{ RAItems[loop.index0][0]["comentario"] }}</span>
+
+						</summary>
+					<ul>
+
+					{% for alumno in alumnos %}
+
+						<details>
+						
+							<summary>
+								<div class="nombreAlumno">
+									{{ alumno["nombre"] }} 
+								</div>
+								<div class="puntajeResumen">
+									{{alumno["puntos"]}}/{{alumno["puntajeMax"]}} 
+								</div>
+							</summary>
+ 
+						<ul>
+
+							{% for item in items %}
+
+								{% set contador = loop.index %}
+
+								{% if alumno[loop.index] %}
+
+									{% for resultado in resultados %}
+
+										{% if resultado["id_alumno"] == alumno["num_matricula"] %}
+
+											{% if resultado["id_item"] == item["id_item"] %}
+
+												<li>item {{contador}}: {{resultado["puntaje_obtenido"]}}/{{item["puntaje_maximo"]}} </li>
+
+											{% endif %}	
+
+										{% endif %}
+
+									{% endfor %}
+
+								{% else %}
+
+									<li>item {{contador}}: No tiene</li>
+
 								{% endif %}
-							</div>
-							-->
-						</table>
-					</div>
-				{% endfor %}
+
+							{% endfor %}	
+							 
+						</ul>
+						</details>		
+
+					{% endfor %}
+					</details>
+					</ul>
+
+				</div>
+
 			</div>
-		</div>
 
-	{% else %}
-		<div>
-			<h1>NO HAY ITEMS</h1>
-		</div>
-	{% endif %}
-	</details>
-
-	<!-- Lista Alumnos -->
-	<div class="listaAlumnos">
+		{% else %}
+			<div>
+				<h1>NO HAY ITEMS</h1>
+			</div>
+		{% endif %}
 		
-		<!-- {{resultados}} -->
-		<ul>
-
-		{% for alumno in alumnos %}
-
-		
-			<li>{{ alumno["nombre"] }}</li>
-
-			<ul>
-
-				{% for item in items %}
-
-					{% set contador = loop.index %}
-
-					{% if alumno[loop.index] %}
-
-						{% for resultado in resultados %}
-
-							{% if resultado["id_alumno"] == alumno["num_matricula"] %}
-
-								{% if resultado["id_item"] == item["id_item"] %}
-
-									<li>item {{contador}}: {{resultado["puntaje_obtenido"]}} </li>
-
-								{% endif %}	
-
-							{% endif %}
-
-						{% endfor %}
-
-					{% else %}
-
-						<li>item {{contador}}: No tiene</li>
-
-					{% endif %}
-
-				{% endfor %}	
-				 
-			</ul>		
-
-		{% endfor %}
-
-		</ul>
-
-	</div>
+	</body>	
 {% endblock %}
