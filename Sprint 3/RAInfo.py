@@ -66,8 +66,11 @@ def RAInfo(asignaturaID, RAID):
 			cumpl = (float(res["puntaje_obtenido"]) / itemPuntMax[ind]) * itemPond[ind]
 			alumnos[res["id_alumno"]]["sum"] += cumpl
 			generalSum += cumpl
-
-		general["sum"] = generalSum / float(len(alumnos))
+		len_alumnos = float(len(alumnos))
+		if len_alumnos!=0:
+			general["sum"] = generalSum / float(len(alumnos))
+		else:
+			general["sum"] = 0.0
 		print(items, general, alumnos)
 
 		asignatura = bd.get_nombre_asignatura(con,asignaturaID)
