@@ -162,7 +162,7 @@ def addScore(asignaturaID, evalID, num_alumn):
 			#print(i)
 				
 		#print("num_alumn", num_alumn)
-		print(alumnos)
+		#print(alumnos)
 
 		#print(alumnos[num_alumn-1]['evaluado'])
 		while alumnos[num_alumn-1]['evaluado'] == True:
