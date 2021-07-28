@@ -290,12 +290,19 @@ h5{
 }
 .detallesContainer #evalInfoDetalles{
 	display: table-cell;
-	width: 30%;
-	padding-left: 10%;
+	width: 16%;
+	padding-left: 2%;
 }
 .detallesContainer #itemsInfoDetalles{
 	display: table-cell;
-	width: 100%;
+	width: 50%;
+}
+
+.detallesContainer #listaAlumnos{
+
+	display: table-cell;
+	width: 19%;
+
 }
 
 

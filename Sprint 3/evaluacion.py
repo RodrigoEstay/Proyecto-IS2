@@ -68,9 +68,17 @@ def detallesEval(asignaturaID, evalID):
 
 		#agrego el campo de tiene o no tiene puntaje
 		existe = False
+
+
+		puntajemax = 0
+		for item in items:
+			puntajemax += item["puntaje_maximo"]
+			
+
 		for alumno in alumnos:
 
 			contador = 1
+			puntos = 0
 
 			for item in items:
 
@@ -80,6 +88,7 @@ def detallesEval(asignaturaID, evalID):
 					matricula = resultado.get('id_alumno', 'Noexiste')
 					if(matricula == alumno["num_matricula"] and item["id_item"] == resultado["id_item"]):
 						existe = True
+						puntos += resultado["puntaje_obtenido"]
 
 				if(existe):
 					#tiene.append({"num_matricula":alumno["num_matricula"],"tiene":True})
@@ -88,8 +97,16 @@ def detallesEval(asignaturaID, evalID):
 					#tiene.append({"num_matricula":alumno["num_matricula"],"tiene":False})
 					alumno[contador] = False
 
-				contador += 1	
+				contador += 1
 
+			if(existe):
+				alumno["puntos"] = puntos
+				alumno["puntajeMax"] = puntajemax
+
+			else:
+				alumno["puntos"] = "-"
+				alumno["puntajeMax"] = puntajemax
+				
 
 		return render_template('evaluacion/detalles.html', asignatura=asignatura, evaluacion=evaluacion, items=items,RAItems=RAItems, RAEval=RAEval, alumnos=alumnos, resultados=resultados) 
 	
