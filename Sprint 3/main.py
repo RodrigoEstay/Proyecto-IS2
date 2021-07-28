@@ -93,7 +93,7 @@ def addEval(codigoAsignatura=None):
 			for i in range(1, cantItems+1):
 				idItem = bd.nuevo_Item(con, idEval, puntajes[i-1], enunciados[i-1])
 				for res in rees[i-1]:
-					res = ast.literal_eval(res)
+					#res = ast.literal_eval(res)
 					#print(res)
 					bd.asociar_ResultadoItem(
 					    con, idItem, res[0], res[1], res[2])

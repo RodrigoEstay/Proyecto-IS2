@@ -32,11 +32,27 @@
 
               <!-- Modal content -->
               <div class="modal-content">
-
-                <span class="close" id = "close-{{loop.index}}">&times;</span>
-                <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" class = "centerIMG">
-                <div class = "a">
-                  <h4><b>{{alumno.nombre}}</b></h4> 
+                <div class = "row">
+                  <span class="close" id = "close-{{loop.index}}">&times;</span>
+                </div>
+                <div class = "row">
+                  
+                </div>
+                <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" class = "centerIMG round">
+                <div class = "row">
+                  <div class = "a">
+                    <h4><b>{{alumno.nombre}}</b></h4> 
+                  </div>
+                </div>
+                
+                <div class = "row">
+                  <img src="{{url_for('static',filename='images/grafico.png')}}" alt="Avatar" class = "centerIMG">
+                </div>
+                
+                <div class = "row" >
+                  
+                    <button type="button" onclick="" class = "boton centrado" >Ver más</button> 
+                 
                 </div>
                 
               </div>
