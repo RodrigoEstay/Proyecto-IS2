@@ -42,7 +42,7 @@ def RAInfo(asignaturaID, RAID):
 				puntajes.extend(bd.get_resultadosEvaluacion(con, row['evalID']))
 				items[row["evalID"]] = []
 
-			items[row["evalID"]].append({"ponderacion": row["ponderacion"]})
+			items[row["evalID"]].append({"ponderacion": row["ponderacion"], "comentario": row["comentario"]})
 			general["total"] += float(row["ponderacion"])
 			itemIDs.append(row["itemID"])
 			itemPuntMax.append(float(row["puntajeMax"]))
@@ -81,7 +81,7 @@ def RAInfo(asignaturaID, RAID):
 		asignatura = {"name": bd.get_nombre_asignatura(con,asignaturaID), "ID": asignaturaID}
 		nombreRA = bd.get_nombreRA(con, RAID)
 
-		print("HOLA")
+		print(items)
 
 		return render_template('infoRA.html',items = items, general = general, RA = nombreRA, asignatura = asignatura, alumnos = alumnos)
 
