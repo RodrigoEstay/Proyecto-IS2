@@ -47,7 +47,7 @@
 							</tr>
 							{% for RA in RAItems[loop.index0] %}
 								<tr>
-									<td>{{ RA["nombre"] }}</td>
+									<td><a href="{{url_for('RAInfo.RAInfo',asignaturaID=asignatura['ID'],RAID=RA['id_resultado'])}}">{{RA["nombre"]}}</a></td>
 									<td>{{ RA["comentario"] }}</td>
 								</tr>
 							{% endfor %}
