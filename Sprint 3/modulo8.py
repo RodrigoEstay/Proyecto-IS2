@@ -607,11 +607,11 @@ def profesor_no_imparte(con, rut, codigo, semestre, año):
 	cur.close()
 	
 
-	
+
 
 def get_dondeImparteRA(con, RAID):
 
-	cur = con.cursor
+	cur = con.cursor()
 	lista = []
 
 	try:

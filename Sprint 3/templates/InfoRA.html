@@ -6,8 +6,58 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    HOLA MUNDO
-  </head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/infoRA.css') }}">
+    </head>
+    <body>      
+      <div class = "row">
+
+        <div class = "sidebar" id="RA-sidebar">
+
+          <h2 id="items-title">Donde es evaluado el RA:</h2>
+          <div id="itemsRA">
+            {% for ev, item in items.items() %}
+              <h3>EVALUACION {{loop.index}}</h3>
+              {% for itm in item %}
+                <p>ITEM {{loop.index}}: PONDERACION {{itm["ponderacion"]}}</p>
+              {% endfor %}
+            {% endfor %}
+          </div>
+
+          <h2 id="general-title">Cumplimiento general:</h2>
+          <div id="generalRA">
+            <p>TENEMOS: {{general["sum"]}}/{{general["total"]}}</p>
+          </div>
+
+        </div>
+
+        <div class = "content">
+          <div class="wrapper">
+          {% for alumno, info in alumnos.items() %}
+            <div class="card" id = "alumno-{{loop.index}}">
+              <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" style="width:107px;height:117px;padding-right:6px">
+              <div class="cardAlumnoRA">
+                <div id="infoAlumno">
+                  <h4><b>{{info.nombre}}</b></h4>
+                  <p>Matrícula: {{alumno}}</p> 
+                </div>
+                <div id="barraCumplimiento">
+                  <p id="textoSobreBarra">Logrado: {{(100*(info['sum']/general['total']))|int}}%</p>
+                  <div id="fondoCumplimiento">
+                    <div id="cumplimiento" style="width:{{100*(info['sum']/general['total'])}}%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        
+    </div>
+      </div>
+      
+    </body>
 </html>
 
 {% endblock %}

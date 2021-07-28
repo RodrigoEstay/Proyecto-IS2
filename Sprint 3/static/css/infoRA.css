@@ -1,0 +1,53 @@
+
+#RA-sidebar{
+	border: none;
+	overflow-x: hidden;
+}
+
+#items-title{
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+#res-nombre{
+	text-align: left;
+	margin-left: 4%;
+	color: slategray;
+}
+
+.cardAlumnoRA{
+  display: table;
+  width: 100%;
+  height: auto;
+}
+
+.cardAlumnoRA #infoAlumno{
+  display: table-row;
+  height:70%;
+  width:100%;
+}
+
+.cardAlumnoRA #barraCumplimiento{
+  display: table-row;
+  height:30%;
+}
+
+#fondoCumplimiento{
+  height:20px;
+  width:95%;
+  background-color:#D3D3D3;
+  padding:4px;
+  border-radius: 14px
+}
+
+#cumplimiento{
+  border-radius: 14px;
+  opacity:1;
+  height:20px;
+  background-color:#5b94f0;
+}
+
+
+div.a {
+  text-align: center;
+}

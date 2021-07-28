@@ -18,12 +18,12 @@ con = bd.connect()
 
 @bp.route("/asignatura/<asignaturaID>/RA/<RAID>")
 @login_required
-def RAInfo(codigoAsignatura, RAID):
+def RAInfo(asignaturaID, RAID):
 
 	idProfesor = current_user.id
 	asignaturasProfesor = bd.get_CodigosClasesImpartidas(con, idProfesor, semester, year)
 
-	if codigoAsignatura in asignaturasProfesor:
+	if asignaturaID in asignaturasProfesor:
 
 		items = {}
 		general = {"sum": 0., "total": 0.}
@@ -38,7 +38,7 @@ def RAInfo(codigoAsignatura, RAID):
 
 		for row in infoRA:
 
-			if row["evalID"] not in items["evalID"]:
+			if row["evalID"] not in items:
 				puntajes.extend(bd.get_resultadosEvaluacion(con, row['evalID']))
 				items[row["evalID"]] = []
 
@@ -53,17 +53,24 @@ def RAInfo(codigoAsignatura, RAID):
 
 		for res in puntajes:
 
-			ind = itemIDs.index(res["id_item"])
+			if res["id_item"] in itemIDs:
+				ind = itemIDs.index(res["id_item"])
+			else:
+				continue
+
 			itemPunt[ind] += res["puntaje_obtenido"]
 
 			if res["id_alumno"] not in alumnos:
-				alumnos[res["id_alumno"]] = {"sum": 0., "total": general["total"]}
+				alumnos[res["id_alumno"]] = {"sum": 0.}
 
-			alumnos[res["id_alumno"]]["sum"] += (float(res["puntaje_obtenido"]) / itemPuntMax[ind]) * itemPond[ind]
+			cumpl = (float(res["puntaje_obtenido"]) / itemPuntMax[ind]) * itemPond[ind]
+			alumnos[res["id_alumno"]]["sum"] += cumpl
+			generalSum += cumpl
 
+		general["sum"] = generalSum / float(len(alumnos))
 		print(items, general, alumnos)
 
-		return render_template('infoRA.html',items = items, general = general, RA = "PRUEBA PRUEBA LOREM IPSUM")
+		return render_template('infoRA.html',items = items, general = general, RA = "PRUEBA PRUEBA LOREM IPSUM", asignatura = None, alumnos = alumnos)
 
 	else:
 		return redirect('/')
