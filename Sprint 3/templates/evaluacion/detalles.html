@@ -19,7 +19,7 @@
 			<div class="detallesContainer">
 				<div id="evalInfoDetalles">
 					<h2>Evaluación {{ evaluacion["index"] }}</h2>
-					<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=evaluacion['ID']) }}?evalIndex={{evaluacion['index']}}">Ingresar Puntaje</a>
+					<a class="action" href="{{ url_for('evaluacion.addScore', asignaturaID=asignatura['ID'], evalID=evaluacion['ID'], num_alumn=1) }}?evalIndex={{evaluacion['index']}}">Ingresar Puntaje</a>
 					<h3>Resultados de Aprendizaje evaluados:</h3>
 					<div class="RAEval">				
 						{% for RA in RAEval %}
