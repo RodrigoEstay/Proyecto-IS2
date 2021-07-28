@@ -66,15 +66,22 @@ def RAInfo(asignaturaID, RAID):
 			cumpl = (float(res["puntaje_obtenido"]) / itemPuntMax[ind]) * itemPond[ind]
 			alumnos[res["id_alumno"]]["sum"] += cumpl
 			generalSum += cumpl
+
 		len_alumnos = float(len(alumnos))
 		if len_alumnos!=0:
 			general["sum"] = generalSum / float(len(alumnos))
 		else:
 			general["sum"] = 0.0
-		print(items, general, alumnos)
+		
+		names = bd.get_listaAlumnosAsignaturaSemestre(con, asignaturaID, semester, year)
+		for n in names:
+			if n["num_matricula"] in alumnos:
+				alumnos[n["num_matricula"]]["nombre"] = n["nombre"]
 
-		asignatura = bd.get_nombre_asignatura(con,asignaturaID)
+		asignatura = {"name": bd.get_nombre_asignatura(con,asignaturaID), "ID": asignaturaID}
 		nombreRA = bd.get_nombreRA(con, RAID)
+
+		print("HOLA")
 
 		return render_template('infoRA.html',items = items, general = general, RA = nombreRA, asignatura = asignatura, alumnos = alumnos)
 

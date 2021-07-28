@@ -1,6 +1,6 @@
 
 {% extends 'encabezado.html' %}
-{% block headerEnc %}{% block titleEnc %}{{asignatura}}{% endblock %}{% endblock %}
+{% block headerEnc %}{% block titleEnc %}{{asignatura['name']}}{% endblock %}{% endblock %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -15,50 +15,71 @@
 
         <div class = "sidebar" id="RA-sidebar">
 
-          <h1 id="RA-title">{{RA}}</h1>
+          <p id="RA-title">{{RA}}</p>
 
-          <h2 id="items-title">Evaluaciones</h2>
-          <div id="itemsRA">
-            {% for ev, item in items.items() %}
-              <h3>EVALUACION {{loop.index}}</h3>
-              {% for itm in item %}
-                <p>ITEM {{loop.index}}: PONDERACION {{itm["ponderacion"]}}</p>
+          {% if items %}
+            <p id="items-title">Evaluado en:</p>
+            <div id="itemsRA">
+              {% for ev, item in items.items() %}
+                <a id="ev-title" href="{{ url_for('evaluacion.detallesEval', asignaturaID=asignatura['ID'], evalID=ev) }}?evalIndex={{loop.index}} ">Evaluación {{loop.index}}:</a>
+                <table id="item-table">
+                  <tr>
+                    <th>Item</th>
+                    <th>Ponderación</th>
+                  </tr>
+                  {% for itm in item %}
+                    <tr>
+                      <td>Item {{loop.index}}</td>
+                      <td>{{itm["ponderacion"]}}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
               {% endfor %}
-            {% endfor %}
-          </div>
+            </div>
+          {% else %}
+            <p id="items-title">No existen evaluaciones asignadas.</p>
+          {% endif %}
 
-          <h2 id="general-title">Cumplimiento general:</h2>
+          <p id="general-title">Cumplimiento general:</p>
           <div id="generalRA">
             <div id="barraCumplimiento">
-                  <p id="textoSobreBarra">Promedio: {{(100*(general['sum']/general['total']))|int}}%</p>
-                  <div id="fondoCumplimiento">
-                    <div id="cumplimiento" style="width:{{100*(general['sum']/general['total'])}}%;"></div>
-                  </div>
+              {% if alumnos %}
+                <p id="textoSobreBarra">Promedio: {{(100*(general['sum']/general['total']))|int}}%</p>
+                <div id="fondoCumplimiento">
+                  <div id="cumplimiento" style="width:{{100*(general['sum']/general['total'])}}%;"></div>
                 </div>
+              {% else %}
+                <p id="textoSobreBarra">No existen resultados registrados.</p>
+              {% endif %}
+            </div>
           </div>
 
         </div>
 
         <div class = "content">
-          <div class="wrapper">
-          {% for alumno, info in alumnos.items() %}
-            <div class="card" id = "alumno-{{loop.index}}">
-              <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" style="width:107px;height:117px;padding-right:6px">
-              <div class="cardAlumnoRA">
-                <div id="infoAlumno">
-                  <h4><b>{{info.nombre}}</b></h4>
-                  <p>Matrícula: {{alumno}}</p> 
-                </div>
-                <div id="barraCumplimiento">
-                  <p id="textoSobreBarra">Logrado: {{(100*(info['sum']/general['total']))|int}}%</p>
-                  <div id="fondoCumplimiento">
-                    <div id="cumplimiento" style="width:{{100*(info['sum']/general['total'])}}%;"></div>
+          {% if alumnos %}
+            <div class="wrapper">
+            {% for alumno, info in alumnos.items() %}
+              <div class="card" id = "alumno-{{loop.index}}">
+                <img src="{{url_for('static',filename='images/sergio.jpg')}}" alt="Avatar" style="width:107px;height:117px;padding-right:6px">
+                <div class="cardAlumnoRA">
+                  <div id="infoAlumno">
+                    <h4><b>{{info.nombre}}</b></h4>
+                    <p>Matrícula: {{alumno}}</p> 
+                  </div>
+                  <div id="barraCumplimiento">
+                    <p id="textoSobreBarra">Logrado: {{(100*(info['sum']/general['total']))|int}}%</p>
+                    <div id="fondoCumplimiento">
+                      <div id="cumplimiento" style="width:{{100*(info['sum']/general['total'])}}%;"></div>
+                    </div>
                   </div>
                 </div>
               </div>
+            {% endfor %}
             </div>
-          {% endfor %}
-        </div>
+          {% else %}
+            <p id="error-alumnos">No existen alumnos evaluados...</p>
+          {% endif %}
         
         
     </div>
