@@ -9,7 +9,7 @@ import evaluacion
 import RAInfo
 import modulo8 as bd
 import ast
-
+import copy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
@@ -145,18 +145,18 @@ def infAsignatura(codigoAsignatura = None):
 
 		#OBTENER DATOS PARA HACER GRAFICOS
 		#obtener evaluaciones
-		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,asignatura,semester,year)
+		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,codigoAsignatura,semester,year)
 		#obtener items de evaluaciones
 		items = []
 		#obtener resultados de cada item
 		resItem = []
 		for ev in evaluaciones:
-			aux = []
-			items.append(bd.get_ItemsEvaluacion(con,ev["id_evaluacion"]))
-			for it in items:
-				aux.append(bd.get_ResultadosItem(con, it["id_item"]))
-			resItem.append(aux)
-
+			
+			items.extend(bd.get_ItemsEvaluacion(con,ev["id_evaluacion"]))
+			
+		for it in items:
+			resItem.append(bd.get_ResultadosItem(con, it["id_item"]))
+		
 		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
 
 		promAlumnos = {}		#PARA CALCULAR EL PROMEDIO DEL CURSO
@@ -169,9 +169,24 @@ def infAsignatura(codigoAsignatura = None):
 
 		#AGREGAR DATOS PARA GRAFICO
 		for alumno in alumnos:
-			alumno["dataArray"] = base.copy()
-
+			alumno["dataArray"] = copy.deepcopy(base)
+			for idx,it in enumerate(items):
+				puntos = bd.get_puntajesItem(con,alumno["num_matricula"],it["id_item"])
+				
+				for raItem in resItem[idx]:
+					idr = raItem["id_resultado"]
+					pond = raItem["ponderacion"]
+					sumar = puntos*pond/100
+					alumno["dataArray"][indiceRA[idr]][1] = alumno["dataArray"][indiceRA[idr]][1] + sumar
+					promAlumnos[idr] = promAlumnos[idr] + sumar 
 		
+		print(base)
+		for idr in promAlumnos:
+			promAlumnos[idr] = promAlumnos[idr]/len(alumnos)
+		for alumno in alumnos:
+			for ra in RA:
+				alumno["dataArray"][indiceRA[ra["id_resultado"]]][2] = promAlumnos[ra["id_resultado"]] 
+
 		return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos,RAs = RA)
 	else:
 		return redirect('/')

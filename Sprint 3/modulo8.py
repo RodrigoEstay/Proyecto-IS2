@@ -25,7 +25,7 @@ DB_PASSWORD = "IS2equipo4"
 # 	id_resultado, nombre
 
 # get_ResultadosItem(con, item):
-# 	id_resultado, nombre, comentario
+# 	id_resultado, nombre, comentario, ponderacion
 
 # get_ClasesImpartidas(con,prof_id,semestre,year):
 # 	nombre_asignatura, codigo, num_alumnos
@@ -33,6 +33,27 @@ DB_PASSWORD = "IS2equipo4"
 # get_puntajesObtenidos(con,alumno,evaluacion):
 # 	id_item, puntaje_obtenido
 
+# get_puntajesItem(con,alumno,id_item):
+# 	 puntaje_obtenido
+
+
+def get_puntajesItem(con,alumno,itemID):
+	cur = con.cursor()
+	
+	try:		
+		cur.execute('SELECT puntaje_alumno.puntaje_obtenido FROM puntaje_alumno WHERE puntaje_alumno.id_item = %s AND puntaje_alumno.id_alumno = %s ',(itemID,alumno))
+	except(Exception,psycopg2.DatabaseError) as error:
+		print("Fallo al comunicarse con la base de datos")
+		print(error)
+	else:
+		aux = cur.fetchone()
+		
+		cur.close()
+		if aux is None:
+			return 0
+		return aux[0]
+	cur.close()
+	return 0
 
 
 def connect():
