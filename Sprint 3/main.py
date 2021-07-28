@@ -142,17 +142,36 @@ def infAsignatura(codigoAsignatura = None):
 		#print(nombreas)
 		asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
 		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con,codigoAsignatura,semester,year)
+
+		#OBTENER DATOS PARA HACER GRAFICOS
+		#obtener evaluaciones
+		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,asignatura,semester,year)
+		#obtener items de evaluaciones
+		items = []
+		#obtener resultados de cada item
+		resItem = []
+		for ev in evaluaciones:
+			aux = []
+			items.append(bd.get_ItemsEvaluacion(con,ev["id_evaluacion"]))
+			for it in items:
+				aux.append(bd.get_ResultadosItem(con, it["id_item"]))
+			resItem.append(aux)
+
+		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+
+		promAlumnos = {}		#PARA CALCULAR EL PROMEDIO DEL CURSO
+		indiceRA = {}			#INDICE EN CADA LISTA DE EN DONDE ESTA EL RA
+		base = [['Name', 'Rendimiento alumno', 'Rendimiento general del curso']]
+		for idx,ra in enumerate(RA):
+			promAlumnos[ra["id_resultado"]] = 0
+			indiceRA[ra["id_resultado"]] = idx+1
+			base.append([ra["nombre"],0,0])
+
 		#AGREGAR DATOS PARA GRAFICO
 		for alumno in alumnos:
-			alumno["dataArray"] = [
-		    ['Name', 'Rendimiento alumno', 'Rendimiento general del curso'],
-		    ['Test-A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A', 4, 3],
-		    ['Test-B', 1, 2],
-		    ['Test-C', 3, 4],
-		    ['Test-D', 2, 3],
-		    ['Test-E', 2, 5]
-			]
-		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+			alumno["dataArray"] = base.copy()
+
+		
 		return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos,RAs = RA)
 	else:
 		return redirect('/')
