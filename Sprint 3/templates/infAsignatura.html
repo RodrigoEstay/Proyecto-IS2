@@ -9,8 +9,9 @@
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename= 'css/infAsignatura.css') }}">
-      <script type="text/javascript" src="{{url_for('static', filename='js/infoAsignatura.js') }}"></script>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="{{url_for('static', filename='js/infoAsignatura.js') }}"></script>
+      
   	</head>
   	<body>    	
     	<div class = "row">
@@ -45,11 +46,26 @@
                     <h4><b>{{alumno.nombre}}</b></h4> 
                   </div>
                 </div>
-                
+                <div id= "chart-{{loop.index}}"></div>
+                <script type="text/javascript">
+                  var options = {
+                          title: "Desempeño",
+                          chartArea: {width:'50%', left:'20%'},
+                          width: 700,
+                          height: 400,
+                          bar: {groupWidth: "55%"},
+                          annotations:{alwaysOutside: true},
+                          series:{}
+                        }
+                  google.setOnLoadCallback(function() {
+                      drawChart('barChart', 'chart-{{loop.index}}', {{alumno.dataArray | tojson}}, options);
+                  });
+                </script>
+                <!--
                 <div class = "row">
                   <img src="{{url_for('static',filename='images/grafico.png')}}" alt="Avatar" class = "centerIMG">
                 </div>
-                
+                -->
                 <div class = "row" >
                   
                     <button type="button" onclick="" class = "boton centrado" >Ver más</button> 

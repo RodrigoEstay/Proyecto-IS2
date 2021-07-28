@@ -139,9 +139,19 @@ def infAsignatura(codigoAsignatura = None):
 
 	if codigoAsignatura in asignaturasProfesor:
 		nombreas = bd.get_nombre_asignatura(con,codigoAsignatura)
-		print(nombreas)
+		#print(nombreas)
 		asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
 		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con,codigoAsignatura,semester,year)
+		#AGREGAR DATOS PARA GRAFICO
+		for alumno in alumnos:
+			alumno["dataArray"] = [
+		    ['Name', 'Rendimiento alumno', 'Rendimiento general del curso'],
+		    ['Test-A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A LARGUISIMO A', 4, 3],
+		    ['Test-B', 1, 2],
+		    ['Test-C', 3, 4],
+		    ['Test-D', 2, 3],
+		    ['Test-E', 2, 5]
+			]
 		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
 		return render_template('infAsignatura.html',asignatura = asignatura, alumnos = alumnos,RAs = RA)
 	else:

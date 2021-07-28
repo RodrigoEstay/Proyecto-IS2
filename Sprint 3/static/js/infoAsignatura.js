@@ -1,3 +1,30 @@
+google.load("visualization", "1", {packages: ["corechart",'table']});
+
+function drawChart(chartType, containerID, dataArray, options) {
+    var data = google.visualization.arrayToDataTable(dataArray,false);
+    var containerDiv = document.getElementById(containerID);
+    var chart = false;
+
+    if (chartType.toUpperCase() == 'BARCHART') {
+        chart = new google.visualization.BarChart(containerDiv);
+    }
+    else if (chartType.toUpperCase() == 'COLUMNCHART') {
+        chart = new google.visualization.ColumnChart(containerDiv);
+    }
+    else if (chartType.toUpperCase() == 'PIECHART') {
+        chart = new google.visualization.PieChart(containerDiv);
+    }
+    else if (chartType.toUpperCase() == 'TABLECHART')
+    {
+        chart = new google.visualization.Table(containerDiv);
+    }
+
+    if (chart == false) {
+        return false;
+    }
+
+    chart.draw(data, options);
+}
 
 function setModal(pos){
 
