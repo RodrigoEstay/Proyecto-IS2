@@ -70,7 +70,10 @@ def RAInfo(asignaturaID, RAID):
 		general["sum"] = generalSum / float(len(alumnos))
 		print(items, general, alumnos)
 
-		return render_template('infoRA.html',items = items, general = general, RA = "PRUEBA PRUEBA LOREM IPSUM", asignatura = None, alumnos = alumnos)
+		asignatura = bd.get_nombre_asignatura(con,asignaturaID)
+		nombreRA = bd.get_nombreRA(con, RAID)
+
+		return render_template('infoRA.html',items = items, general = general, RA = nombreRA, asignatura = asignatura, alumnos = alumnos)
 
 	else:
 		return redirect('/')
