@@ -27,8 +27,10 @@
 						{% endfor %}
 					</div>
 				</div>
+				<div id="items_y_lista">
 				<details>
 					<summary>Items</summary>
+
 				<div id="itemsInfoDetalles">
 					{% for item in items %}
 						<div class="card itemsDetalles">
@@ -54,90 +56,75 @@
 								{% endfor %}
 
 
-								<!--
-								<div>
-									<p>Resultados de aprendizaje:</p>
-									{% for RA in RAItems[loop.index0] %}
-										<p>{{ RA["nombre"] }}</p>
-									{% endfor %}
-								</div>
-								<div>
-									<span>Comentario:</span>
-									{% if RAItems[0] %}
-									<span>{{ RAItems[loop.index0][0]["comentario"] }}</span>
-									{% endif %}
-								</div>
-								-->
 							</table>
 						</div>
 					{% endfor %}
 				</div>
 				</details>
-
-				<!-- Lista Alumnos -->
-				<div id="listaAlumnos">
+					<div id="listaAlumnos">
 					<details>
+						<summary>Lista de Alumnos</summary>
 					<!-- {{resultados}} -->
-						<summary>
 
-							<div class="tituloLista">
-								Lista de Alumnos
-							</div>
-
-						</summary>
-					<ul>
-
-					{% for alumno in alumnos %}
-
-						<details>
 						
-							<summary>
-								<div class="nombreAlumno">
-									{{ alumno["nombre"] }} 
-								</div>
-								<div class="puntajeResumen">
-									{{alumno["puntos"]}}/{{alumno["puntajeMax"]}} 
-								</div>
-							</summary>
- 
 						<ul>
 
-							{% for item in items %}
+						{% for alumno in alumnos %}
 
-								{% set contador = loop.index %}
+							<details>
+							
+								<summary>
+									<div class="nombreAlumno">
+										{{ alumno["nombre"] }} 
+									</div>
+									<div class="puntajeResumen">
+										{{alumno["puntos"]}}/{{alumno["puntajeMax"]}} 
+									</div>
+								</summary>
+	 
+							<ul>
 
-								{% if alumno[loop.index] %}
+								{% for item in items %}
 
-									{% for resultado in resultados %}
+									{% set contador = loop.index %}
 
-										{% if resultado["id_alumno"] == alumno["num_matricula"] %}
+									{% if alumno[loop.index] %}
 
-											{% if resultado["id_item"] == item["id_item"] %}
+										{% for resultado in resultados %}
 
-												<li>item {{contador}}: {{resultado["puntaje_obtenido"]}}/{{item["puntaje_maximo"]}} </li>
+											{% if resultado["id_alumno"] == alumno["num_matricula"] %}
 
-											{% endif %}	
+												{% if resultado["id_item"] == item["id_item"] %}
 
-										{% endif %}
+													<li>item {{contador}}: {{resultado["puntaje_obtenido"]}}/{{item["puntaje_maximo"]}} </li>
 
-									{% endfor %}
+												{% endif %}	
 
-								{% else %}
+											{% endif %}
 
-									<li>item {{contador}}: No tiene</li>
+										{% endfor %}
 
-								{% endif %}
+									{% else %}
 
-							{% endfor %}	
-							 
+										<li>item {{contador}}: No tiene</li>
+
+									{% endif %}
+
+								{% endfor %}	
+								 
+							</ul>
+							</details>		
+
+						{% endfor %}
 						</ul>
-						</details>		
-
-					{% endfor %}
 					</details>
-					</ul>
+					
 
 				</div>
+				</div>
+
+				<!-- Lista Alumnos -->
+				
 
 			</div>
 
@@ -146,6 +133,7 @@
 				<h1>NO HAY ITEMS</h1>
 			</div>
 		{% endif %}
+
 		
 	</body>	
 {% endblock %}

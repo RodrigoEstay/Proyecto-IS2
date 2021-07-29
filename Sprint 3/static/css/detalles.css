@@ -12,13 +12,15 @@ details {
     border: 1px solid #aaa;
     border-radius: 4px;
     padding: .5em .5em 0;
-    width: 90%;
+    margin-bottom: 10px;
+    width: 70%;
 }
 
 summary {
     font-weight: bold;
     font-size: 24px;
     margin: -.5em -.5em 0;
+    margin-bottom: 10px;
     padding: .5em;
 }
 
@@ -31,17 +33,15 @@ details[open] summary {
     margin-bottom: .5em;
 }
 
-#listaAlumnos details {
+/*#listaAlumnos details {
     border: 3px double #aaa;
     border-radius: 4px;
     padding: .5em .5em 0;
     width: 85%;
-}
+}*/
 
 #listaAlumnos summary {
     display: grid;
-    margin: -.5em -.5em 0;
-    padding: .5em;
 }
 
 .nombreAlumno{
