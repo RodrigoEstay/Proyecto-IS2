@@ -26,11 +26,13 @@
                   <tr>
                     <th>Item</th>
                     <th>Ponderación</th>
+                    <th>Comentario</th>
                   </tr>
                   {% for itm in item %}
                     <tr>
                       <td>Item {{loop.index}}</td>
                       <td>{{itm["ponderacion"]}}</td>
+                      <td>{{itm["comentario"]}}</td>
                     </tr>
                   {% endfor %}
                 </table>
