@@ -23,9 +23,14 @@ Luego, desde algún navegador, se debe ingresar al link `localhost:5000`
 
 ## Base de datos
 
-La base de datos utilizada es provista por la Universidad de Concepción, donde se encuentran los usuarios registrados, para probar el programa, se puede utilizar el siguiente usuario y contraseña:
+La base de datos utilizada es provista por la Universidad de Concepción, donde se encuentran los usuarios registrados, para probar el programa, se puede utilizar alguno de los siguientes usuarios y contraseñas:
 
 ```
-Correo: 	mgallardo@correo.com
+Correo:     mgallardo@correo.com
 Contraseña: password1
+```
+
+```
+Correo:     kpalacios@correo.com
+Contraseña: password2
 ```
