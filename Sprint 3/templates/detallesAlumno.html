@@ -10,7 +10,8 @@
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename= 'css/detallesAlumno.css') }}">
-  		
+  		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="{{url_for('static', filename='js/detAlumnos.js') }}"></script>
     	<title>{{asignatura.nombre}}</title>
   	</head>
   	<body>
@@ -19,7 +20,27 @@
           <div class = "a">
             <h2> Resultados preliminares</h2>
           </div>
-          
+          {% for tabla in tablas %}
+          <div class = "column">
+            <div id= "chart-{{loop.index}}" style></div>
+            <script type="text/javascript">
+              var options{{loop.index}} = {
+                      title: "Resultado de aprendizaje {{loop.index}}",
+                      chartArea: {width:'50%', left:'20%'},
+                      width: 600,
+                      height: 400,
+                      bar: {groupWidth: "55%"},
+                      annotations:{alwaysOutside: true},
+                      series:{},
+                      legend: {position: 'none'},
+                      
+                    }
+              google.setOnLoadCallback(function() {
+                  drawChart('barChart', 'chart-{{loop.index}}', {{tabla | tojson}}, options{{loop.index}});
+              });
+            </script>
+          </div>
+          {% endfor %}
         </div>
         <div class = "column">
           <div class = "a">

@@ -157,12 +157,15 @@ def infAlumno(codigoAsignatura = None, idAlumno = None):
 		
 		promAlumnos = {}		#PARA CALCULAR EL PROMEDIO DEL CURSO
 		indiceRA = {}			#INDICE EN CADA LISTA DE EN DONDE ESTA EL RA
+		tablas = []
 		for idx,ra in enumerate(RA):
 			promAlumnos[ra["id_resultado"]] = 0
-			indiceRA[ra["id_resultado"]] = idx+1
-
+			indiceRA[ra["id_resultado"]] = idx
+			tablas.append([['Categoria','valor'],['Puntaje máximo',0],['Puntaje promedio',0],['Puntaje alumno',0]])
+		alumnos = bd.get_listaAlumnosAsignaturaSemestre(con,codigoAsignatura,semester,year)
+		flag = False
 		for alumno in alumnos:
-			alumno["dataArray"] = copy.deepcopy(base)
+			
 			for idx,it in enumerate(items):
 				puntos = bd.get_puntajesItem(con,alumno["num_matricula"],it["id_item"])
 				if puntos < 0:
@@ -171,11 +174,19 @@ def infAlumno(codigoAsignatura = None, idAlumno = None):
 					idr = raItem["id_resultado"]
 					pond = raItem["ponderacion"]
 					sumar = puntos*pond/100
-					alumno["dataArray"][indiceRA[idr]][1] = alumno["dataArray"][indiceRA[idr]][1] + sumar
+					#alumno["dataArray"][indiceRA[idr]][1] = alumno["dataArray"][indiceRA[idr]][1] + sumar
+					if alumno["num_matricula"] == idAlumno:
+						tablas[indiceRA[idr]][3][1] = tablas[indiceRA[idr]][3][1] + sumar
 					promAlumnos[idr] = promAlumnos[idr] + sumar 
+					if flag == False:
+						tablas[indiceRA[idr]][1][1] = tablas[indiceRA[idr]][1][1] + it["puntaje_maximo"]*pond/100 
+			flag = True
 		
+		for idr in promAlumnos:
+			promAlumnos[idr] = promAlumnos[idr]/len(alumnos)
+			tablas[indiceRA[idr]][2][1] = promAlumnos[idr]
 
-		return render_template('detallesAlumno.html',asignatura = asignatura, alumno = alum, notasEval = notasEval)
+		return render_template('detallesAlumno.html',asignatura = asignatura, alumno = alum, notasEval = notasEval, tablas = tablas)
 	else:
 		return redirect('/')
 
