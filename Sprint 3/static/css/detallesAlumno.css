@@ -1,0 +1,25 @@
+.column {
+  float: left;
+  width: 50%;
+}
+div.a {
+  text-align: center;
+}
+
+.card.vert{
+	flex-direction: column;
+	background-color: #add8e6;
+	margin: 10px auto;
+	padding: 10px;
+}
+
+.itEval{
+	font-size: 150%;
+	background-color: white;
+	margin: 5px 5px;
+	border-radius: 10px;
+	padding: 5px;
+}
+.tituloEvaluacion{
+	font-size: 180%;
+}

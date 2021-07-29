@@ -50,7 +50,7 @@ def get_puntajesItem(con,alumno,itemID):
 		
 		cur.close()
 		if aux is None:
-			return 0
+			return -1
 		return aux[0]
 	cur.close()
 	return 0

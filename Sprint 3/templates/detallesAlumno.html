@@ -9,13 +9,47 @@
 	<head>
   		<meta charset="utf-8">
   		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/nuevaEval.css') }}">
-  		<script type="text/javascript" src="{{url_for('static', filename='js/func.js') }}"></script>
-      <script type="text/javascript" src="{{url_for('static', filename='js/agregarRA.js') }}"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/detallesAlumno.css') }}">
+  		
     	<title>{{asignatura.nombre}}</title>
   	</head>
   	<body>
-  		
+  		<div class = "row">
+        <div class = "column">
+          <div class = "a">
+            <h2> Resultados preliminares</h2>
+          </div>
+          
+        </div>
+        <div class = "column">
+          <div class = "a">
+            <h2> Resultados evaluaciones</h2>
+            {% for eval in notasEval %}
+              <div class = "card vert" >
+                <div class ="tituloEvaluacion">
+                  <h3><bold> Evaluación {{loop.index}}</bold></h3>  
+                </div>
+                
+                {% for it in eval %}
+                  <div class = "itEval">
+                    {% if it.obtenido == -1%}
+                      
+                        <br>Item {{loop.index}}: --/{{it.puntaje_maximo}}<br>
+                      
+                    {% else %}
+                      
+                        <br>Item {{loop.index}}: {{it.obtenido}}/{{it.puntaje_maximo}}<br>
+                      
+                    {% endif %}
+                  </div>
+                  
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+          
+        </div>  
+      </div>
     	
   	</body>
 </html>

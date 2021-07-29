@@ -101,7 +101,6 @@ def addEval(codigoAsignatura=None):
 			return redirect(url_for('evaluacion.evaluation', asignaturaID=codigoAsignatura))
 
 		nombreas = bd.get_nombre_asignatura(con, codigoAsignatura)
-		print(nombreas)
 		asignatura = {'codigo': codigoAsignatura, 'nombre': nombreas}
 
 		cantEval = len(bd.get_listaEvaluacionesAsignatura(
@@ -139,9 +138,44 @@ def infAlumno(codigoAsignatura = None, idAlumno = None):
 	if codigoAsignatura in asignaturasProfesor:
 		nombreas = bd.get_nombre_asignatura(con,codigoAsignatura)
 		nombreal = bd.get_nombre_alumno(con, idAlumno)
-		alumno = {'num_matricula':idAlumno, 'nombre':nombreal}
+		alum = {'num_matricula':idAlumno, 'nombre':nombreal}
 		asignatura = {'codigo':codigoAsignatura,'nombre':nombreas}
-		return render_template('detallesAlumno.html',asignatura = asignatura, alumno = alumno)
+		RA = bd.get_ResultadosAsignatura(con,codigoAsignatura)
+		evaluaciones = bd.get_listaEvaluacionesAsignatura(con,codigoAsignatura,semester,year)
+		notasEval = []
+		items = []
+		resItem = []
+		for ev in evaluaciones:
+			aux = bd.get_ItemsEvaluacion(con,ev["id_evaluacion"])
+			for it in aux:
+				it["obtenido"] = bd.get_puntajesItem(con,idAlumno,it["id_item"])
+			notasEval.append(aux)
+			items.extend(aux)
+
+		for it in items:
+			resItem.append(bd.get_ResultadosItem(con, it["id_item"]))
+		
+		promAlumnos = {}		#PARA CALCULAR EL PROMEDIO DEL CURSO
+		indiceRA = {}			#INDICE EN CADA LISTA DE EN DONDE ESTA EL RA
+		for idx,ra in enumerate(RA):
+			promAlumnos[ra["id_resultado"]] = 0
+			indiceRA[ra["id_resultado"]] = idx+1
+
+		for alumno in alumnos:
+			alumno["dataArray"] = copy.deepcopy(base)
+			for idx,it in enumerate(items):
+				puntos = bd.get_puntajesItem(con,alumno["num_matricula"],it["id_item"])
+				if puntos < 0:
+					puntos = 0
+				for raItem in resItem[idx]:
+					idr = raItem["id_resultado"]
+					pond = raItem["ponderacion"]
+					sumar = puntos*pond/100
+					alumno["dataArray"][indiceRA[idr]][1] = alumno["dataArray"][indiceRA[idr]][1] + sumar
+					promAlumnos[idr] = promAlumnos[idr] + sumar 
+		
+
+		return render_template('detallesAlumno.html',asignatura = asignatura, alumno = alum, notasEval = notasEval)
 	else:
 		return redirect('/')
 
@@ -188,7 +222,8 @@ def infAsignatura(codigoAsignatura = None):
 			alumno["dataArray"] = copy.deepcopy(base)
 			for idx,it in enumerate(items):
 				puntos = bd.get_puntajesItem(con,alumno["num_matricula"],it["id_item"])
-				
+				if puntos < 0:
+					puntos = 0
 				for raItem in resItem[idx]:
 					idr = raItem["id_resultado"]
 					pond = raItem["ponderacion"]
