@@ -136,8 +136,6 @@ def addScore(asignaturaID, evalID, num_alumn):
 
 			for i in range(len(puntajes)):
 				bd.ingresar_Puntaje(con, matAlumno, itemsID[i], puntajes[i])
-
-
 			num_alumn += 1
 
 		evalIndex = request.args.get("evalIndex")
@@ -159,16 +157,17 @@ def addScore(asignaturaID, evalID, num_alumn):
 				else:
 					i['evaluado'] = False
 				break
-			#print(i)
-				
-		#print("num_alumn", num_alumn)
+	
 		#print(alumnos)
-
-		#print(alumnos[num_alumn-1]['evaluado'])
-		while alumnos[num_alumn-1]['evaluado'] == True:
-			num_alumn += 1
-
-		return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items, al = alumnos[num_alumn-1], eval_ID = evalID, asignatura_ID = asignaturaID, eval_Index = evalIndex)
+		cantAlumnos = len(alumnos)
+		
+		# while num_alumn <= cantAlumnos and alumnos[num_alumn-1]['evaluado'] == True:
+		# 	num_alumn += 1
+		
+		if num_alumn <= cantAlumnos:
+			return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items, al = alumnos[num_alumn-1], eval_ID = evalID, asignatura_ID = asignaturaID, eval_Index = evalIndex)
+		else:
+			return render_template('evaluacion/addScore.html', asignatura=asignatura, evalIndex=evalIndex, alumnos=alumnos, items=items, al = alumnos[0], eval_ID = evalID, asignatura_ID = asignaturaID, eval_Index = evalIndex)
 
 	else:
 		return redirect('/')

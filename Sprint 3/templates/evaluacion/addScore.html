@@ -57,7 +57,7 @@
 							<div id="lista_alumnos">
 								<input type = "hidden" name=alumno value = {{al['num_matricula']}}>
 								{% if alumn['evaluado'] %}
-									<a id="Eval" for="{{ alumn['nombre'] }}"> {{ alumn['nombre'] }} 
+									<a id="Eval" for="{{ alumn['nombre'] }}" href="{{url_for('evaluacion.addScore', asignaturaID=asignatura_ID, evalID = eval_ID, num_alumn = loop.index)}}?evalIndex={{eval_Index}}"> {{ alumn['nombre'] }} 
 									</a><i class="far fa-check-circle" id="icono"></i>
 
 								{% else %}
