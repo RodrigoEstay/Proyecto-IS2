@@ -25,7 +25,14 @@
 										<div class="CantEstudiantes"> <h5>{{ramo.num_alumnos}} Estudiantes</h5></div></h5>
 									</div>
 									<div>
+										{% if loop.index % 2 == 1%}
+											<img class="grafico" src="{{url_for('static',filename='images/ph1.png')}}" alt="grafico" style = "width: 200px;height: 250px; margin: 0 auto;">
+										{% else %}
+											<img class="grafico" src="{{url_for('static',filename='images/ph2.jpg')}}" alt="grafico" style = "width: 200px;height: 250px;margin: 0 auto;">
+										{% endif %}
+										<!--
 										<img class="grafico" src="https://lh3.googleusercontent.com/g0Jw-I6-gH2DVCpnl3u8QKZVT_meR9lcJlpyeSZ-MyvwLnyEZvgyrY5frldA8HCv55s=w280" alt="grafico">
+										-->
 									</div>
 								</a>
 							</div>
